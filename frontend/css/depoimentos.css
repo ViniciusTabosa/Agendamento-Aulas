@@ -19,7 +19,7 @@
 }
 
 .depoimento-titulo {
-    font-family: "Bebas Neue";
+    font-family: "Bebas Neue", sans-serif;
     font-weight: 400;
     font-size: 4rem;
     color: #EBE8E1;
@@ -127,3 +127,4 @@ label:hover{
 #slide3:checked ~ .s1{
     margin-left: -133.32%;
 }
+

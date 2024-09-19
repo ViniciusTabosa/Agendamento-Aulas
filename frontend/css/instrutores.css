@@ -1,0 +1,143 @@
+/* Estilos do Container Principal */
+.instrutores-bg {
+    margin-top: 80px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 150px;
+}
+
+/* Estilos do Título Principal */
+.instrutores-bg h1 {
+    text-align: center;
+    font-family: "Bebas Neue", sans-serif;
+    max-width: 30ch;
+    font-size: 4rem;
+    color: #2C3E50;
+    margin-bottom: 50px;
+    font-weight: 400;
+}
+
+/* Estilos do Cabeçalho */
+.cabecalho {
+    display: flex;
+    align-items: center;
+    height: 148px;
+    gap: 20px;
+    margin: 30px 0 30px; /* Combina margin-top e margin-bottom */
+}
+
+.cabecalho img {
+    rotate: -10deg; /* Considere usar transform: rotate(-10deg); para melhor compatibilidade */
+}
+
+.cabecalho h2 {
+    font-size: 2rem;
+    font-family: "Open Sans", sans-serif;
+    color: #2f2f2f;
+}
+
+/* Estilos da Seção de Instrutores */
+.instrutores-violao {
+   background-color: #F1C40F;
+   border-radius: 50px 50px 0 0;
+}
+
+.instrutores{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1000px;
+    position: relative;
+    gap: 10px;
+}
+
+/* Estilos do Instrutor */
+.instrutor {
+    display: grid;
+    grid-template-columns: 200px 700px;
+}
+
+/* Estilos para Nome e Idade */
+.nome-idade {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1rem;
+    color: #2f2f2f;
+}
+
+.nome-idade h3 {
+    margin: -3px 0 10px; /* Combina margin-top e margin-bottom */
+}
+
+/* Estilos da Seção de Informações */
+.informacoes h4 {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1rem;
+    color: #2f2f2f;
+    height: 25px;
+    margin: 0 0 10px; /* Combina margin-top e margin-bottom */
+}
+
+.informacoes p {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1rem;
+    color: #2f2f2f;
+    margin-bottom: 10px;
+}
+
+.informacoes ul {
+    display: flex;
+    gap: 20px;
+    margin: 10px 0 70px; /* Combina margin-top e margin-bottom */
+    position: relative;
+}
+
+.informacoes ul li {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1rem;
+    color: #2f2f2f;
+}
+
+/* Estilos dos Pseudo-Elementos */
+.informacoes ul li:first-child::after {
+    display: block;
+    content: "";
+    height: 20px;
+    width: 1px;
+    position: absolute;
+    background-color: #2f2f2f;
+    right: 627px;
+    top: 0;
+}
+
+.instrutor:first-child::after {
+    display: block;
+    content: "";
+    height: 50px;
+    width: 150px;
+    position: absolute;
+    background-color: #2f2f2f;
+    top: -500px; /* Ajuste esse valor conforme necessário */
+}
+
+.instrutor2{
+    background-color: #2C3E50;
+}
+
+.instrutores-teclado{
+    background-color: #D6EAF8;
+}
+
+.instrutores-violino{
+    background-color: #f1c40f;
+}
+
+.instrutores-bateria{
+    background-color: #d6eaf8;
+}
+
+.instrutores-canto{
+    background-color: #F1C40F;
+    border-radius: 0 0 50px 50px;
+}
