@@ -1,20 +1,9 @@
 .pagina-perfil-aluno{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  
-}
-
-.coluna-perfil{
-  background-color: beige;
+  background-color: #FFF;
+  height: 500px;
+  width: 500px;
   display: flex;
-  flex-direction: column;
+
+  justify-content: center;
   align-items: center;
-}
-
-.coluna-agenda{
-  background-color: azure;
-}
-
-.coluna-aulas-disponiveis{
-  background-color: rgb(231, 206, 167);
 }
