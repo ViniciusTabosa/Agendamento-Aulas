@@ -1,0 +1,76 @@
+/* Estilos básicos */
+.aulas-bg{
+    margin-top: 80px;
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+.aulas-bg h1{
+    width: 100%;
+    text-align: center;
+    font-family: "Bebas Neue", sans-serif;
+    max-width: 20ch;
+    font-size: 4rem;
+    color: #2C3E50;
+    margin-bottom: 50px;
+    font-weight: 400;
+}
+
+.aulas {
+    display: grid;
+    grid-template-columns: repeat(3, 300px);
+    grid-template-columns: repeat(3, 300px);
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.aula {
+    width: 300px;
+    height: 300px;
+    border: 1px solid black;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Ocultar inputs */
+input[type="radio"] {
+    display: none;
+}
+
+/* Estilo para o conteúdo de cada slide */
+.aula-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+input#violao1:checked ~ .slide1,
+input#violao2:checked ~ .slide2, 
+input#canto1:checked ~ .slide1,
+input#canto2:checked ~ .slide2 {
+    opacity: 1;
+}
+
+/* Controles do carrossel */
+.controles {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.controles label {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+}
