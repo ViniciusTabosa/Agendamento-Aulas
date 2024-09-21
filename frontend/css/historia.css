@@ -1,0 +1,56 @@
+.historia-bg{
+    background-color: #2C3E50;
+    width: 100%;
+    height: 950px;
+   
+}
+
+.historia-desc{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 0 60px;
+}
+
+.historia-titulo{
+    font-family: "Bebas Neue", sans-serif;
+    max-width: 15ch;
+    font-size: 4rem;
+    margin-bottom: 50px;
+    font-weight: 400;
+    padding-left: 50px;
+    padding-top: 50px;
+}
+
+.historia-subtitulo{
+    font-family: "Open sans", sans-serif;
+    font-size: 1.8rem;
+}
+
+.info{
+    padding-top: 50px;
+}
+
+.historia-titulo,.historia-subtitulo, .h3{
+    color:#EBE8E1;
+}
+
+.desc-info{
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: "Open Sans",sans-serif;
+    font-size: 1rem;
+    max-width: 80ch;
+    color: rgb(7, 7, 7);
+}
+
+.h3{
+    margin-left: 50px;
+
+}
+
+.h3 + .desc-info{
+    margin-left: 50px;
+}
+
+

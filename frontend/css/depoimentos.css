@@ -1,6 +1,6 @@
 
 .depoimento-bg {
-    margin-top: 80px;
+    
     width: 100%;
     background-image: url("../fotos/natalia-malaia-J1IkXfBlKeE-unsplash\ \(1\)\ 1.png");
     background-repeat: no-repeat;
@@ -15,7 +15,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
+ 
 }
 
 .depoimento-titulo {
