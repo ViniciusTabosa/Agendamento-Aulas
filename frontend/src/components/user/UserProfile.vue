@@ -212,6 +212,8 @@ export default {
 }
 
 .menu-lateral {
+  font-family: "Open Sans", sans-serif;
+  text-align: center;
   width: 200px;
   border-right: 1px solid #ddd;
   padding: 20px;
@@ -238,9 +240,18 @@ export default {
   border-radius: 10px;
 }
 
+
 .conteudo {
+  font-family: "Open Sans", sans-serif;
+  text-align: center;
   flex-grow: 1;
   padding: 20px;
+}
+
+.profile-section{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .conteudo h2{
@@ -271,9 +282,10 @@ input {
 
 .save-btn,
 .cancel-btn {
-  background-color: #F1C40F;
+  color: #fff;
+  background-color: #2C3E50;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -282,20 +294,21 @@ input {
 
 .save-btn:hover {
   color: #fff;
-  background-color: #6a1b9a;
+  background: linear-gradient(#2C3E50, #648db6);
 }
 
 .cancel-btn {
   background-color: #D6EAF8;
+  color: #000;
 }
 
 .cancel-btn:hover {
-  background-color: #b71c1c;
+  background-color: #e47d7d;
 }
 
 .action-buttons {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   margin-top: 20px;
 }
 
