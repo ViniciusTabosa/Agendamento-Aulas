@@ -17,6 +17,8 @@ import ClassManagementView from '@/views/admin/ClassManagementView.vue';
 import ClassCategoriesManagementView from '@/views/admin/ClassCategoriesManagementView.vue'; 
 import CatalogView from '@/views/classes/CatalogView.vue'; 
 import SchedulingManagementView from '@/views/admin/SchedulingManagementView.vue'; 
+import AulasView from '@/views/AulasView.vue';
+import InstrutoresView from '@/views/InstrutoresView.vue';
 
 const routes = [
   {
@@ -28,6 +30,16 @@ const routes = [
     path: '/about',
     name: 'About',
     component: AboutView,
+  },
+  { 
+    path: '/aulas',
+    name: 'Aulas',
+    component: AulasView,
+  },
+  {
+    path:'/instrutores',
+    name: 'Instrutores',
+    component: InstrutoresView,
   },
   {
     path: '/login',

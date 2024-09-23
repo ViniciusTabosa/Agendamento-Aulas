@@ -1,30 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instrutores | Vozes e Acordes</title>
-
-    <link rel="stylesheet" href="./css/style.css">
-
-  <!-- Fontes -->
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-  <link rel="shortcut icon" href="fotos/music (2).ico" type="image/x-icon">
-
-</head>
-<body>
-    <div id="header-placeholder"></div>  
-
+<template>
     <section class="instrutores-bg">
         <h1>Conheça Nossos Instrutores: Paixão e Excelência na Música</h1>
 
         <div class="instrutores-violao instrutores">
             <div class="cabecalho">
                 <h2>Instrutores de Violão</h2>
-                <img src="fotos/guitar.png" alt="imagem de um violão" class="img-rotacao">
+                <img src="../fotos/guitar.png" alt="imagem de um violão" class="img-rotacao">
             </div>
             <div class="instrutor instrutor2">
                 <div class="nome-idade">
@@ -44,7 +25,7 @@
                         <li>Iniciante</li>
                         <li>Avançado</li>
                     </ul>
-                    <a href="aulas.html" class="link-horario">Visualize os horários ➔</a>
+                    <a href="/aulas" class="link-horario">Visualize os horários ➔</a>
                 </div>
             </div>
             
@@ -65,14 +46,14 @@
                     <ul>
                         <li>Iniciante</li>
                     </ul>
-                    <a href="aulas.html" class="link-horario">Visualize os horários ➔</a>
+                    <a href="/aulas" class="link-horario">Visualize os horários ➔</a>
                 </div>
             </div>
         </div>
 
         <div class="instrutores-teclado instrutores">
             <div class="cabecalho">
-                    <img src="fotos/midi.png" alt="">
+                    <img src="../fotos/midi.png" alt="Figura de um teclado">
                     <h2>Instrutora de Teclado</h2>
                     
             </div>
@@ -94,7 +75,7 @@
                             <li>Iniciante</li>
                             <li>Intermediário</li>
                         </ul>
-                        <a href="aulas.html" class="link-horario">Visualize os horários ➔</a>
+                        <a href="/aulas" class="link-horario">Visualize os horários ➔</a>
                     </div>
                 </div>               
         </div>
@@ -102,7 +83,7 @@
         <div class="instrutores-violino instrutores">
                 <div class="cabecalho">
                     <h2>Instrutora de Violino</h2>
-                    <img src="fotos/violin.png" alt="Imagem de um violino" class="img-rotacao">
+                    <img src="../fotos/violin.png" alt="Figura de um violino" class="img-rotacao">
                 </div>
                 <div class="instrutor">
                     <div class="nome-idade">
@@ -122,14 +103,14 @@
                             <li>Iniciante</li>
                             <li>Intermediário</li>
                         </ul>
-                        <a href="aulas.html" class="link-horario">Visualize os horários ➔</a>
+                        <a href="/aulas" class="link-horario">Visualize os horários ➔</a>
                     </div>
                 </div>               
         </div>
 
         <div class="instrutores-bateria instrutores">
                 <div class="cabecalho">
-                    <img src="fotos/music.png" alt="">
+                    <img src="../fotos/music.png" alt="Figura de duas baquetas">
                     <h2>Instrutor de Bateria</h2>
                     
                 </div>
@@ -159,7 +140,7 @@
         <div class="instrutores-canto instrutores">
             <div class="cabecalho">
                 <h2>Instrutores de Canto</h2>
-                <img src="fotos/microphone.png" alt="">
+                <img src="../fotos/microphone.png" alt="Figura de um microfone">
             </div>
             <div class="instrutor instrutor2">
                 <div class="nome-idade">
@@ -178,7 +159,7 @@
                     <ul>
                         <li>Intermediária</li>
                     </ul>
-                    <a href="aulas.html" class="link-horario">Visualize os horários ➔</a>
+                    <a href="/aulas" class="link-horario">Visualize os horários ➔</a>
                 </div>
             </div>
             
@@ -199,16 +180,166 @@
                     <ul>
                         <li>Iniciante</li>
                     </ul>
-                    <a href="aulas.html" class="link-horario">Visualize os horários ➔</a>
+                    <a href="/aulas" class="link-horario">Visualize os horários ➔</a>
                 </div>
             </div>
         </div>
 
     </section>
 
-  <div id="footer-placeholder"></div>
+</template>
 
-  <script src="js/header.js"></script>
-  <script src="js/footer.js"></script>
-</body>
-</html>
+<script>
+</script>
+
+<style scoped>
+
+/* Estilos do Container Principal */
+.instrutores-bg {
+    margin-top: 80px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 150px;
+}
+
+/* Estilos do Título Principal */
+.instrutores-bg h1 {
+    text-align: center;
+    font-family: "Bebas Neue", sans-serif;
+    max-width: 30ch;
+    font-size: 4rem;
+    color: #2C3E50;
+    margin-bottom: 50px;
+    font-weight: 400;
+}
+
+/* Estilos do Cabeçalho Geral */
+.cabecalho {
+    display: flex;
+    align-items: center;
+    height: 148px;
+    gap: 20px;
+    margin: 30px 0 30px; 
+}
+
+.img-rotacao{
+    transform: rotate(-10deg); 
+}
+
+.cabecalho h2 {
+    font-size: 2rem;
+    font-family: "Open Sans", sans-serif;
+    color: #2f2f2f;
+}
+
+/* Estilos da Seção de Instrutores */
+.instrutores-violao {
+   border-radius: 50px 50px 0 0;
+}
+
+.instrutores-canto, .instrutores-violao{
+    position: relative;
+}
+
+.instrutores-violino, .instrutores-violao{
+    background-color: #f1c40f;
+}
+
+.instrutores-bateria, .instrutores-teclado{
+    background-color: #d6eaf8;
+}
+
+.instrutores-canto{
+    background-color: #F1C40F;
+    border-radius: 0 0 50px 50px;
+}
+
+.instrutores{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1000px;
+    gap: 10px;
+}
+
+/* Estilos do Instrutor */
+.instrutor {
+    display: grid;
+    grid-template-columns: 200px 700px;
+    margin-bottom: 20px;
+
+}
+
+/* Estilos para Nome e Idade */
+.nome-idade {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1rem;
+    color: #2f2f2f;
+}
+
+.nome-idade h3 {
+    margin: -3px 0 10px; 
+}
+
+/* Estilos da Seção de Informações */
+
+.informacoes h4, .informacoes p, .informacoes ul li, .link-horario {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1rem;
+    color: #2f2f2f;
+}
+
+.informacoes h4 {
+    height: 25px;
+    margin: 0 0 10px;
+}
+
+.informacoes p {
+    margin-bottom: 10px;
+}
+
+.informacoes ul {
+    display: flex;
+    gap: 20px;
+    margin: 10px 0 10px; 
+    position: relative;
+}
+
+.link-horario{
+    font-weight: 600;
+    padding: 20px;
+    margin-left: 450px;
+}
+
+/* Estilos dos Pseudo-Elementos */
+.nivel2::after {
+    display: block;
+    content: "";
+    height: 20px;
+    width: 1px;
+    position: absolute;
+    background-color: #2f2f2f;
+    right: 627px;
+    top: 0;
+}
+
+.instrutor2::after {
+    display: block;
+    content: "";
+    height: 1px;
+    width: 900px;
+    position: absolute;
+    background-color: #2f2f2f;
+    bottom: 490px;
+    left: 50px;
+}
+
+
+.link-horario:hover{
+    transform: scale(1.1);
+}
+
+
+</style>

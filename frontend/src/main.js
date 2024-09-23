@@ -4,6 +4,7 @@ import router from './router';
 import { createPinia } from 'pinia'; 
 import { store } from './store'; 
 import { useAuthStore } from '@/store/auth';
+import './assets/css/style.css'
 
 const app = createApp(App);
 const pinia = createPinia();
