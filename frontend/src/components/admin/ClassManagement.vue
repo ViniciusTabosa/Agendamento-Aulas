@@ -75,20 +75,26 @@
     <!-- Modal para visualizar aula -->
     <div v-if="verModal" class="modal">
       <div class="modal-content">
-        <h2>Detalhes da Aula</h2>
-        <p><strong>Nome:</strong> {{ aulaSelecionada.nome }}</p>
-        <p><strong>Descrição:</strong> {{ aulaSelecionada.descricao }}</p>
-        <p><strong>Duração:</strong> {{ aulaSelecionada.duracao }} {{ aulaSelecionada.duracao > 1 ? 'horas' : 'hora' }}</p>
-        <p><strong>Categoria:</strong> {{ aulaSelecionada.categoriaId?.nome }}</p>
-        <p><strong>Instrutor:</strong> {{ aulaSelecionada.instrutorId?.nome }} {{ aulaSelecionada.instrutorId?.sobrenome }}</p>
-        <button @click="fecharModal" class="btn">Fechar</button>
+        <div class="modal-header">
+          <h2>Detalhes da Aula</h2>
+        </div>
+        <div class="modal-p">
+          <p><span>Nome:</span>{{ aulaSelecionada.nome }}</p>
+          <p><span>Descrição:</span>{{ aulaSelecionada.descricao }}</p>
+          <p><span>Duração:</span>{{ aulaSelecionada.duracao }} {{ aulaSelecionada.duracao > 1 ? 'horas' : 'hora' }}</p>
+          <p><span>Categoria:</span>{{ aulaSelecionada.categoriaId?.nome }}</p>
+          <p><span>Instrutor:</span>{{ aulaSelecionada.instrutorId?.nome }} {{ aulaSelecionada.instrutorId?.sobrenome }}</p>
+        </div>
+        <button @click="fecharModal" class="btn-cancel">Fechar</button>
       </div>
     </div>
 
     <!-- Modal para editar aula -->
     <div v-if="editarModal" class="modal">
       <div class="modal-content">
-        <h2>Editar Aula</h2>
+        <div class="modal-header">
+          <h2>Editar Aula</h2>
+        </div>
         <input v-model="aulaEditando.nome" placeholder="Nome" class="input-field" />
         <textarea v-model="aulaEditando.descricao" placeholder="Descrição" class="input-field"></textarea>
         <input v-model="aulaEditando.duracao" placeholder="Duração (horas)" class="input-field" />
@@ -604,12 +610,14 @@ export default {
 .table-wrapper {
   overflow-x: auto;
   margin-top: 20px;
+  border-radius: 20px;
 }
 
 .class-table {
   width: 100%;
   border-collapse: collapse;
   margin: 0 auto;
+  border-radius: 20px;
 }
 
 .class-table th,
@@ -618,6 +626,8 @@ export default {
   border: 1px solid #e2e8f0;
   text-align: left;
   vertical-align: middle; /* Garante que o conteúdo das células fique centralizado verticalmente */
+  font-family: 'Open Sans', sans-serif;
+
 }
 
 .class-table th {
@@ -630,6 +640,22 @@ export default {
 .class-table td {
   color: #2F2F2F;
 }
+
+.pagination-container {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.class-table th:first-child{
+  border-radius: 20px 0px 0px 0px;
+}
+
+.class-table th:last-child{
+  border-radius: 0px 20px 0px 0px;
+}
+
+
+
+
 
 .actions {
   display: flex;
@@ -665,6 +691,22 @@ export default {
   max-width: 500px;
   width: 100%;
   text-align: center; /* Centraliza o texto dentro do modal */
+}
+
+.modal-content p {
+  margin-bottom: 10px;
+  
+}
+
+.modal-p{
+  text-align: left; 
+  font-family:"Open Sans", sans-serif;
+  color:#2F2F2F;
+}
+
+.modal-p span {
+  font-weight: bold;
+  margin-right: 2px;
 }
 
 .modal-header {

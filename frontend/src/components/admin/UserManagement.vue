@@ -1,20 +1,15 @@
 <template>
   <div class="usuarios-container">
-    
+
     <div class="title-container">
       <h1 class="title">Gerenciamento de Usuários</h1>
       <button @click="abrirModalNovoUsuario" class="btn" style="margin-left: 5px;">Novo Usuário</button>
-    </div>   
+    </div>
 
     <!-- Input de Busca -->
     <div class="search-box">
-      <input
-        type="text"
-        v-model="searchQuery"
-        @input="buscarUsuario"
-        placeholder="Digite o e-mail ou CPF do usuário"
-        class="search-input"
-      />
+      <input type="text" v-model="searchQuery" @input="buscarUsuario" placeholder="Digite o e-mail ou CPF do usuário"
+        class="search-input" />
 
       <!-- Dropdown para seleção de perfil -->
       <select v-model="selectedPerfil" @change="buscarUsuario" class="filter-select">
@@ -22,8 +17,8 @@
         <option v-for="perfil in perfis" :key="perfil._id" :value="perfil._id">{{ perfil.nome }}</option>
       </select>
 
-      <button @click="resetarFiltro" class="btn-reset">Resetar Filtro</button>      
-      
+      <button @click="resetarFiltro" class="btn-reset">Resetar Filtro</button>
+
     </div>
 
     <!-- Tabela de Usuários -->
@@ -61,35 +56,37 @@
     </div>
 
     <!-- Componente de Paginação -->
-    <PaginationComponent
-      :paginaAtual="paginaAtual"
-      :totalPaginas="totalPaginas"
-      :totalRegistros="totalUsuarios"
-      :registrosPorPagina="usuariosPorPagina"
-      @pagina-trocada="paginaAtual = $event; buscarUsuarios(false)"
-    />
+    <PaginationComponent :paginaAtual="paginaAtual" :totalPaginas="totalPaginas" :totalRegistros="totalUsuarios"
+      :registrosPorPagina="usuariosPorPagina" @pagina-trocada="paginaAtual = $event; buscarUsuarios(false)" />
 
     <!-- Modal para visualizar o usuário -->
     <div v-if="verModal" class="modal">
       <div class="modal-content">
-        <h2>Detalhes do Usuário</h2>
-        <p><strong>Nome:</strong> {{ usuarioSelecionado.nome }} {{ usuarioSelecionado.sobrenome }}</p>
-        <p><strong>E-mail:</strong> {{ usuarioSelecionado.email }}</p>
-        <p><strong>CPF:</strong> {{ formatarCPF(usuarioSelecionado.cpf) }}</p>
-        <p><strong>Perfil:</strong> {{ usuarioSelecionado.perfilId?.nome }}</p>
-        <button @click="fecharModal" class="btn">Fechar</button>
+        <div class="modal-header">
+          <h2>Detalhes do Usuário</h2>
+        </div>
+        <div class="modal-p">
+          <p><span>Nome:</span> {{ usuarioSelecionado.nome }} {{ usuarioSelecionado.sobrenome }}</p>
+          <p><span>E-mail</span>: {{ usuarioSelecionado.email }}</p>
+          <p><span>CPF:</span> {{ formatarCPF(usuarioSelecionado.cpf) }}</p>
+          <p><span>Perfil:</span> {{ usuarioSelecionado.perfilId?.nome }}</p>
+        </div>
+        <button @click="fecharModal" class="btn btn-cancel">Fechar</button>
       </div>
     </div>
 
     <!-- Modal para editar o usuário -->
     <div v-if="editarModal" class="modal">
       <div class="modal-content">
-        <h2>Editar Usuário</h2>
+        <div class="modal-header">
+          <h2>Editar Usuário</h2>
+        </div>
         <input v-model="usuarioEditando.nome" placeholder="Nome" class="input-field" />
         <input v-model="usuarioEditando.sobrenome" placeholder="Sobrenome" class="input-field" />
         <input v-model="usuarioEditando.email" placeholder="E-mail" class="input-field" />
-        <input v-model="usuarioEditando.cpf" @input="usuarioEditando.cpf = formatarCPF(usuarioEditando.cpf)" placeholder="CPF" class="input-field"/>
-        <input v-model="usuarioEditando.senha" placeholder="Senha" class="input-field" type ="password" />
+        <input v-model="usuarioEditando.cpf" @input="usuarioEditando.cpf = formatarCPF(usuarioEditando.cpf)"
+          placeholder="CPF" class="input-field" />
+        <input v-model="usuarioEditando.senha" placeholder="Senha" class="input-field" type="password" />
         <select v-model="usuarioEditando.perfilId" class="input-field">
           <option v-for="perfil in perfis" :key="perfil._id" :value="perfil._id">{{ perfil.nome }}</option>
         </select>
@@ -101,11 +98,14 @@
     <!-- Modal para adicionar novo usuário -->
     <div v-if="novoUsuarioModal" class="modal">
       <div class="modal-content">
-        <h2>Novo Usuário</h2>
+        <div class="modal-header">
+          <h2>Novo Usuário</h2>
+        </div>
         <input v-model="novoUsuario.nome" placeholder="Nome" class="input-field" />
         <input v-model="novoUsuario.sobrenome" placeholder="Sobrenome" class="input-field" />
         <input v-model="novoUsuario.email" placeholder="E-mail" class="input-field" />
-        <input v-model="novoUsuario.cpf" @input="novoUsuario.cpf = formatarCPF(novoUsuario.cpf)" placeholder="CPF" class="input-field" />
+        <input v-model="novoUsuario.cpf" @input="novoUsuario.cpf = formatarCPF(novoUsuario.cpf)" placeholder="CPF"
+          class="input-field" />
         <input v-model="novoUsuario.senha" placeholder="Senha" class="input-field" type="password" />
         <select v-model="novoUsuario.perfilId" class="input-field">
           <option v-for="perfil in perfis" :key="perfil._id" :value="perfil._id">{{ perfil.nome }}</option>
@@ -119,7 +119,7 @@
 
 <script>
 import PaginationComponent from '@/components/shared/Pagination.vue';
-import api from "@/utils/api"; 
+import api from "@/utils/api";
 
 export default {
   name: 'UserManagementComponent',
@@ -161,9 +161,9 @@ export default {
         const queryParam = `?pagina=${this.paginaAtual}&usuariosPorPagina=${this.usuariosPorPagina}`;
         const searchParam = this.searchQuery ? `&searchQuery=${encodeURIComponent(this.searchQuery)}` : '';
         const perfilParam = this.selectedPerfil ? `&perfilId=${this.selectedPerfil}` : '';
-  
+
         const response = await api.get(`/usuarios${queryParam}${searchParam}${perfilParam}`);
-        
+
         this.usuarios = response.data.usuarios;
         this.totalUsuarios = response.data.totalUsuarios;
         this.totalPaginas = Math.ceil(this.totalUsuarios / this.usuariosPorPagina);
@@ -318,7 +318,8 @@ export default {
 
 <style scoped>
 .usuarios-container {
-  min-height: calc(100vh - 100px); /* Calcula a altura da viewport menos o tamanho do header e footer */
+  min-height: calc(100vh - 100px);
+  /* Calcula a altura da viewport menos o tamanho do header e footer */
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -327,7 +328,7 @@ export default {
   background-color: #FFFFFF;
 }
 
-.title-container{
+.title-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -391,18 +392,18 @@ export default {
 }
 
 .btn-reset {
-  background-color: #F1C40F; 
-  color: #2C3E50; 
-  padding: 12px 24px; 
-  border-radius: 25px; 
-  font-weight: bold; 
-  border: 2px solid #bcddff; 
-  cursor: pointer; 
-  transition: background-color 0.3s ease, color 0.3s ease; 
+  background-color: #F1C40F;
+  color: #2C3E50;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: bold;
+  border: 2px solid #bcddff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-reset:hover {
-  background-color: #d3ad04; 
+  background-color: #d3ad04;
 
 }
 
@@ -410,6 +411,7 @@ export default {
 .table-wrapper {
   overflow-x: auto;
   margin-top: 20px;
+  border-radius: 20px;
 }
 
 .user-table {
@@ -423,18 +425,38 @@ export default {
   padding: 10px;
   border: 1px solid #e2e8f0;
   text-align: left;
+  vertical-align: middle;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .user-table th {
   background-color: #2C3E50;
   color: white;
   padding: 10px;
-  text-align: center; /* Centraliza o conteúdo do cabeçalho */
+  text-align: center;
 }
 
 .user-table td {
   color: #2F2F2F;
 }
+
+.user-table td {
+  color: #2F2F2F;
+}
+
+.pagination-container {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.user-table th:first-child{
+  border-radius: 20px 0px 0px 0px;
+}
+
+.user-table th:last-child{
+  border-radius: 0px 20px 0px 0px;
+}
+
+
 
 
 
@@ -448,7 +470,8 @@ export default {
 .action-icon {
   cursor: pointer;
   font-size: 1.2rem;
-  color: #F1C40F; /* Cor de destaque */
+  color: #F1C40F;
+  /* Cor de destaque */
 }
 
 .modal {
@@ -464,23 +487,48 @@ export default {
 }
 
 .modal-content {
-  background: white;
+  background: #FFFFFF; /* Cor de fundo do modal */
   padding: 20px;
   border-radius: 10px;
   max-width: 500px;
   width: 100%;
+  text-align: center; /* Centraliza o texto dentro do modal */
 }
 
-.modal-content h2 {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 1.8rem;
-  color: #2C3E50;
+
+.modal-content p {
+  margin-bottom: 10px;
+
+}
+
+.modal-p{
+  text-align: left; 
+  font-family:"Open Sans", sans-serif;
+  color:#2F2F2F;
+}
+
+.modal-p span {
+  font-weight: bold;
+  margin-right: 2px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  font-family: 'Bebas Neue', sans-serif; /* Fonte para o título */
+  color: #2C3E50; /* Cor do texto do título */
+  margin: 0;
 }
 
 /* Botões específicos dos modais */
 .btn-save {
-  background-color: #2ECC71; /* Verde */
+  background-color: #2ECC71;
+  /* Verde */
 }
 
 .btn-save:hover {
@@ -488,7 +536,8 @@ export default {
 }
 
 .btn-cancel {
-  background-color: #E74C3C; /* Vermelho */
+  background-color: #E74C3C;
+  /* Vermelho */
 }
 
 .btn-cancel:hover {
