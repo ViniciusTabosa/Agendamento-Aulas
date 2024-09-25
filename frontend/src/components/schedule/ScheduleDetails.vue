@@ -1,6 +1,6 @@
 <template>
   <div class="detalhes-agendamento">
-    <h1>Detalhe do Agendamento</h1>
+    <h1>Detalhes do Agendamento</h1>
 
     <div v-if="agendamento">
       <p><strong>Aula:</strong> {{ agendamento.aulaId.nome }}</p>
