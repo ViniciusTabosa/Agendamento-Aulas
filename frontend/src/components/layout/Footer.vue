@@ -25,7 +25,7 @@
                       <h2>Informações</h2>
                       <nav>
                           <ul>
-                              <li><a href="#historia">Quem Somos</a></li>
+                              <li><a href="/about">Quem Somos</a></li>
                               <li><a href="/instrutores">Nossos Instrutores</a></li>
                               <li><a href="/catalog">Nossas Aulas</a></li>
       

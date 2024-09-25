@@ -90,7 +90,7 @@ export default {
             start: eventDate.start,
             end: eventDate.end,
             id: agendamento._id,
-            color: '#7e57c2',
+            color: '#2C3E50',
           };
         });
 
@@ -101,8 +101,53 @@ export default {
   },
   methods: {
     setupCalendar() {
+<<<<<<< HEAD
       // Mesmo que agendamentos esteja vazio, o calendário será renderizado
       this.calendarOptions.events = this.agendamentos.length ? this.agendamentos : [];
+=======
+      this.calendarOptions = {
+        plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+        initialView: 'timeGridWeek',
+        locale: 'pt-br',
+        events: this.agendamentos,
+        slotMinTime: '00:00',
+        slotMaxTime: '24:00',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'timeGridDay,timeGridWeek,dayGridMonth',
+        },
+        titleFormat: {
+          year: 'numeric',
+          month: 'long',
+        },
+        dayHeaderFormat: {
+          weekday: 'short',
+          day: 'numeric',
+        },
+        dayHeaderContent: (args) => {
+          const dayName = args.text.slice(0, 3);
+          const dayNumber = args.text.slice(5);
+          return {
+            html: `<span style="display: block; text-transform: uppercase; margin-bottom: 5px; font-family: 'Open Sans', sans-serif;">${dayName}</span><span style="font-family: 'Open Sans', sans-serif;">${dayNumber}</span>`
+          };
+        },
+        buttonText: {
+          today: 'Hoje',
+          month: 'Mês',
+          week: 'Semana',
+          day: 'Dia',
+        },
+        allDaySlot: false,
+        slotLabelFormat: { 
+          hour: '2-digit', 
+          minute: '2-digit', 
+          hour12: false, 
+          hourCycle: 'h23' 
+        },
+        eventClick: this.handleEventClick,
+      };
+>>>>>>> ada387601d722e0b698f48357620328be25188da
     },
     handleEventClick(info) {
       const agendamentoId = info.event.id;
@@ -136,7 +181,10 @@ export default {
 </script>
 
 <style scoped>
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+=======
+>>>>>>> ada387601d722e0b698f48357620328be25188da
 
 .meus-agendamentos {
   max-width: 900px;
@@ -151,7 +199,7 @@ h1 {
   font-weight: 100;
 }
 
-.fc-toolbar-title {
+.fc .fc-toolbar-title {
   color: #5e35b1;
   font-size: 1.5rem;
 }

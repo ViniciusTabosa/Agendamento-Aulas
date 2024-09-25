@@ -199,12 +199,10 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-
 .user-profile-container {
   display: flex;
   max-width: 1000px;
-  margin: 40px auto;
+  margin: 120px auto;
   background-color: #F5F1E9;
   border-radius: 10px;
   box-shadow: 0 4px 8px #2c3e5062;
@@ -282,14 +280,22 @@ input {
 
 .save-btn,
 .cancel-btn {
+<<<<<<< HEAD
   color: #fff;
   background-color: #2C3E50;
   padding: 10px 20px;
   border-radius: 10px;
+=======
+  color: #D6EAF8;
+  background-color: #2C3E50;
+  padding: 10px 20px;
+  border-radius: 30px;
+>>>>>>> ada387601d722e0b698f48357620328be25188da
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin-right: 10px;
+  text-transform: uppercase;
 }
 
 .save-btn:hover {
