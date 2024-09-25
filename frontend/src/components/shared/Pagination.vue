@@ -101,10 +101,10 @@ export default {
 /* Estilo principal para o contêiner de paginação */
 .pagination-container {
   display: flex;
-  justify-content: space-between; /* Espaça o contador e a paginação */
-  align-items: center; /* Alinha os itens verticalmente no centro */
-  width: 100%; /* Faz o contêiner ocupar a largura total */
-  margin-top: 15px;
+  justify-content: space-between; 
+  align-items: center; 
+  width: 98%; 
+  margin-top: 25px;
 }
 
 .pagination {
@@ -116,12 +116,12 @@ export default {
 .pagination .link {
   margin: 0 8px;
   cursor: pointer;
-  color: #6e56cf;
+  color: #2C3E50;
   text-decoration: none;
 }
 
 .pagination .link:hover {
-  color: #5b3da3;
+  color: #1A2A38;
 }
 
 .pagination .active {
@@ -130,7 +130,7 @@ export default {
 
 .reticencias {
   margin: 0 5px;
-  color: #6e56cf;
+  color: #2C3E50;
 }
 
 .table-info {

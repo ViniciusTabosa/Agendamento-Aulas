@@ -85,7 +85,8 @@ exports.obterAulas = async (req, res) => {
   try {
     const aulas = await Aula.find()
       .populate('categoriaId')  // Populando a categoria
-      .populate('instrutorId', 'nome sobrenome');  // Populando o instrutor com apenas nome e sobrenome
+      .populate('instrutorId', 'nome sobrenome') // Populando o instrutor com apenas nome e sobrenome
+      .populate('')
 
     res.status(200).json(aulas);
   } catch (error) {
@@ -145,6 +146,16 @@ exports.obterAulasEDisponibilidade = async (req, res) => {
 
 // buscar aulas com filtro para a página de gerenciamento de aulas (admin)
 exports.buscarAulasComFiltros = async (req, res) => {
+  const diasDaSemana = {
+    0: 'Domingo',
+    1: 'Segunda-feira',
+    2: 'Terça-feira',
+    3: 'Quarta-feira',
+    4: 'Quinta-feira',
+    5: 'Sexta-feira',
+    6: 'Sábado'
+  };
+
   try {
     const { searchQuery, categoriaId, pagina = 1, aulasPorPagina = 10 } = req.query;
 
@@ -169,20 +180,29 @@ exports.buscarAulasComFiltros = async (req, res) => {
     // Contar o total de aulas para paginação
     const totalAulas = await Aula.countDocuments(query);
 
-    // Verificar a disponibilidade de horários para cada aula
+    // Verificar a disponibilidade de horários e incluir dias e horários
     const resultado = await Promise.all(aulas.map(async (aula) => {
       // Buscar os horários disponíveis relacionados a esta aula
       const horarios = await HorarioDisponivel.find({ aulaId: aula._id });
-      
+
       // Verificar se há algum horário disponível
       let temHorarioDisponivel = false;
       if (horarios.length > 0) {
         temHorarioDisponivel = horarios.some(horario => horario.disponivel);
       }
 
+      // Mapear os horários com dias e horas
+      const diasHorarios = horarios.map(horario => ({
+        dia: diasDaSemana[horario.diaSemana], 
+        horaInicio: horario.hora_inicio,
+        horaFim: horario.hora_fim,
+        disponivel: horario.disponivel,
+      }));
+
       return {
         ...aula.toObject(),
         temHorarioDisponivel, // Adiciona a informação de disponibilidade
+        diasHorarios, // Adiciona os dias e horários disponíveis
       };
     }));
 
@@ -191,51 +211,3 @@ exports.buscarAulasComFiltros = async (req, res) => {
     res.status(400).json({ error: "Erro ao buscar aulas", detalhes: error.message });
   }
 };
-
-// Obter aulas com maior demanda (mais agendamentos, exceto os cancelados)
-exports.obterAulasEmDestaque = async (req, res) => {
-  try {
-    // Buscar status cancelado para excluir da contagem
-    const statusCancelado = await StatusAgendamento.findOne({ code: '003' }); 
-
-    // Agrupar agendamentos por aulaId e contar, excluindo agendamentos com status cancelado
-    const aulasComDemanda = await Agendamento.aggregate([
-      { $match: { statusId: { $ne: statusCancelado._id } } }, // Excluir agendamentos cancelados
-      { $group: { _id: "$aulaId", totalAgendamentos: { $sum: 1 } } }, // Contar agendamentos por aula
-      { $sort: { totalAgendamentos: -1 } }, // Ordenar por maior número de agendamentos
-      { $limit: 10 } // Limitar a 10 aulas com maior demanda
-    ]);
-
-    // Obter os detalhes das aulas
-    const aulasIds = aulasComDemanda.map(item => item._id);
-    const aulas = await Aula.find({ _id: { $in: aulasIds } })
-      .populate('categoriaId')
-      .populate('instrutorId', 'nome sobrenome');
-
-    // Mapear e verificar a disponibilidade dos horários para cada aula
-    const resultado = await Promise.all(aulas.map(async (aula) => {
-      // Buscar os horários disponíveis relacionados a esta aula
-      const horarios = await HorarioDisponivel.find({ aulaId: aula._id });
-      
-      // Verificar se há algum horário disponível
-      let temHorarioDisponivel = false;
-      if (horarios.length > 0) {
-        temHorarioDisponivel = horarios.some(horario => horario.disponivel);
-      }
-
-      // Buscar o número total de agendamentos para a aula
-      const agendamentos = aulasComDemanda.find(item => item._id.equals(aula._id)).totalAgendamentos;
-
-      return {
-        ...aula.toObject(),
-        totalAgendamentos: agendamentos,
-        temHorarioDisponivel, // Indica se a aula tem horários disponíveis
-      };
-    }));
-
-    res.status(200).json(resultado);
-  } catch (error) {
-    res.status(500).json({ error: 'Erro ao buscar aulas com maior demanda', detalhes: error.message });
-  }
-};
-

@@ -1,135 +1,126 @@
 <template>
-
-
   <body class="body-cadastro">
-  
-  <section class="cadastro-bg">
-  
+    <section class="cadastro-bg">
       <div class="cadastro">
-          <div class="cadastro-informacoes">
-              <h1 class="cadastro-titulo">
-                  Junte-se à Nossa Família Musical!
-              </h1>
-              <p class="cadastro-subtitulo">Cadastre-se agora e comece sua jornada na música com aulas gratuitas<span class="detalhe">.</span></p>
-              <div class="form" >
-                  <form @submit.prevent="handleRegister">
-                      <div class="nome-sobrenome-form">
-                          <div class="campo">
-                              <label for="nome">Nome:</label>
-                              <input v-model="nome" type="text" name="nome" id="nome" required>
-                          </div>
-                          <div class="campo">
-                              <label for="sobrenome">Sobrenome:</label>
-                              <input type="text" name="sobrenome" id="sobrenome" v-model="sobrenome" required>
-                          </div>
-                      </div>
-                      <div class="cpf">
-                          <label for="cpf">CPF:</label>
-                          <input type="text" name="cpf" id="cpf" v-model="cpf" required>
-                      </div>
-                      <div class="email">
-                          <label for="email">E-mail:</label>
-                          <input type="email" name="email" id="email" v-model="email" required>
-                      </div>
-                      <div class="senha">
-                          <label for="senha">Senha:</label>
-                          <input type="password" name="senha" id="senha" v-model="senha" required>
-                      </div>
-                      
-                      <div class="div-cadastro">
-                          <router-link to="/"><a href="index.html" class="btn btn-login">Voltar</a></router-link>
-                          <button type="submit" class="btn btn-cadastrar">Cadastrar</button>
-                      </div>
-                  </form>
+        <div class="cadastro-informacoes">
+          <h1 class="cadastro-titulo">
+            Junte-se à Nossa Família Musical!
+          </h1>
+          <p class="cadastro-subtitulo">Cadastre-se agora e comece sua jornada na música com aulas gratuitas<span class="detalhe">.</span></p>
+          <div class="form">
+            <form @submit.prevent="handleRegister">
+              <!-- Formulário de cadastro -->
+              <div class="nome-sobrenome-form">
+                <div class="campo">
+                  <label for="nome">Nome:</label>
+                  <input v-model="nome" type="text" name="nome" id="nome" required>
+                </div>
+                <div class="campo">
+                  <label for="sobrenome">Sobrenome:</label>
+                  <input type="text" name="sobrenome" id="sobrenome" v-model="sobrenome" required>
+                </div>
               </div>
+              <div class="cpf">
+                <label for="cpf">CPF:</label>
+                <input type="text" name="cpf" id="cpf" v-model="cpf" required>
+              </div>
+              <div class="email">
+                <label for="email">E-mail:</label>
+                <input type="email" name="email" id="email" v-model="email" required>
+              </div>
+              <div class="senha">
+                <label for="senha">Senha:</label>
+                <input type="password" name="senha" id="senha" v-model="senha" required>
+              </div>
+
+              <div class="div-cadastro">
+                <router-link to="/"><a href="index.html" class="btn btn-login">Voltar</a></router-link>
+                <button type="submit" class="btn btn-cadastrar" :disabled="isLoading">
+                  <span v-if="!isLoading">Cadastrar</span>
+                  <span v-else>Processando...</span> <!-- Texto de carregamento -->
+                </button>
+              </div>
+            </form>
           </div>
-          <div class="img-cadastro">
-              <img src="../../fotos/rukma-pratista-qej8X_erXLg-unsplash.jpg" alt="">
+        </div>
+
+        <!-- Indicador de carregamento -->
+        <div v-if="isLoading" class="loading-overlay">
+          <div class="loading-spinner"></div> <!-- Adicione um spinner aqui -->
+          <p>Enviando e-mail de confirmação...</p>
+        </div>
+
+        <div class="img-cadastro">
+          <img src="../../fotos/rukma-pratista-qej8X_erXLg-unsplash.jpg" alt="">
+        </div>
+
+        <!-- Modal de mensagens -->
+        <div v-if="message || errorMessage" class="modal-overlay">
+          <div class="modal-content">
+            <p v-if="errorMessage">{{ errorMessage }}</p>
+            <p v-if="message">{{ message }}</p>
+            <router-link to="/"><button @click="closeModal" class="fechar btn">Fechar</button></router-link>
           </div>
-  
-          <div v-if="message || errorMessage" class="modal-overlay">
-            <div class="modal-content">
-              <p v-if="errorMessage">{{ errorMessage }}</p>
-              <p v-if="message">{{ message }}</p>
-              <router-link to="/"><button @click="closeModal" class="fechar btn">Fechar</button></router-link>
-            </div>
-          </div>
-  
+        </div>
       </div>
-  
-      
-  
-  </section>
-  
+    </section>
   </body>
+</template>
+
   
-  
-   
-  </template>
-  
-  <script>
-  import axios from '@/utils/api';
-  
-  
-  export default {
-  
-    mounted(){
-      window.$('#cpf').mask('000.000.000-00');
-    },
-  
-    closeModal() {
-        // Função para fechar o modal
-        console.log("Fechar modal");
-        this.message = '';
+export default {
+  name: 'RegisterComponent',
+  data() {
+    return {
+      nome: '',
+      sobrenome: '',
+      email: '',
+      cpf: '',
+      senha: '',
+      errorMessage: '',
+      message: '',
+      isLoading: false, // Estado de carregamento
+    };
+  },
+  methods: {
+    async handleRegister() {
+      this.isLoading = true; // Inicia o carregamento
+      try {
+        // Buscar o perfil "002" (usuário comum)
+        const perfilResponse = await axios.get('/perfis/code/002');
+        const perfilId = perfilResponse.data._id;
+
+        // Fazer a requisição de criação de conta com o perfilId
+        await axios.post('/register', {
+          nome: this.nome,
+          sobrenome: this.sobrenome,
+          email: this.email,
+          cpf: this.cpf,
+          senha: this.senha,
+          perfilId: perfilId,
+        });
+
+        this.message = 'Conta criada com sucesso! Verifique seu e-mail para confirmar sua conta.';
         this.errorMessage = '';
-      },
-  
-    name: 'RegisterComponent',
-    data() {
-      return {
-        nome: '',
-        sobrenome: '',
-        email: '',
-        cpf: '',
-        senha: '',
-        errorMessage: '',
-        message: '',
-      };
-    },
-    methods: {
-      async handleRegister() {
-        try {
-          // Buscar o perfil "002" (usuário comum)
-          const perfilResponse = await axios.get('/perfis/code/002');
-          const perfilId = perfilResponse.data._id;
-  
-          // Fazer a requisição de criação de conta com o perfilId
-          await axios.post('/register', {
-            nome: this.nome,
-            sobrenome: this.sobrenome,
-            email: this.email,
-            cpf: this.cpf,
-            senha: this.senha,
-            perfilId: perfilId,
-          });
-  
-          this.message = 'Conta criada com sucesso! Verifique seu e-mail para confirmar sua conta.';
-          this.errorMessage = '';
-        } catch (error) {
-          if (error.response) {
-            alert(error.response.data.error || 'Erro desconhecido.');
-          } else {
-            this.errorMessage = 'Erro ao criar a conta. Verifique os dados e tente novamente.';
-            this.message = '';
-          }
+      } catch (error) {
+        if (error.response) {
+          this.errorMessage = error.response.data.error || 'Erro desconhecido.';
+        } else {
+          this.errorMessage = 'Erro ao criar a conta. Verifique os dados e tente novamente.';
+          this.message = '';
         }
-      },
+      } finally {
+        this.isLoading = false; // Finaliza o carregamento
+      }
     },
-  };
-  </script>
+    closeModal() {
+      this.message = '';
+      this.errorMessage = '';
+    },
+  },
+};
   
-  <style scoped>
-  
+<style scoped>
   
   .modal-overlay {
     position: fixed;
@@ -312,6 +303,40 @@
       font-weight: 400;
       display: inline-block;
   }
+
+  .loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #2C3E50;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-overlay p {
+  color: white;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  font-family: "Open Sans", sans-serif;
+}
   
   </style>
   

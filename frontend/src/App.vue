@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header v-if="showHeaderFooter" />
-    <main>
+    <main class="main-container">
       <router-view />
     </main>
     <Footer v-if="showHeaderFooter"/>
@@ -28,18 +28,33 @@ export default {
 </script>
 
 <style>
-#app {
-  /* text-align: center;
-  font-family: 'Poppins', sans-serif; */
-  background-color: var(#fdfcfe);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
 }
-/* 
-main {
-  flex: 1;
-  padding: 20px;
-} */
+
+body{
+    background-color: #F5F1E9;
+    font-family: "Open Sans";
+}
+
+img{
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+ul{
+    list-style: none;
+}
+
+a{
+   text-decoration: none;
+   display: inline-block;
+}
+
+.main-container{
+  min-height: calc(100vh - 100px);
+}
 </style>

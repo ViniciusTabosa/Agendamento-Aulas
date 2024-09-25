@@ -82,17 +82,14 @@ export default {
     },
     async confirmarCancelamento() {
       try {
-        const confirmacao = confirm('Você deseja realmente cancelar este agendamento?');
-        if (confirmacao) {
-          await axios.delete('/agendamentos/cancelar', {
-            data: {
-              agendamentoId: this.agendamento._id,
-              confirmacaoCancelamento: true,
-            },
-          });
-          alert('Agendamento cancelado com sucesso!');
-          this.$router.push('/meus-agendamentos');
-        }
+        confirm('Você deseja realmente cancelar este agendamento?');
+        await axios.delete('/agendamentos/cancelar', {
+          data: {
+            agendamentoId: this.agendamento._id,
+          },
+        });
+        alert('Agendamento cancelado com sucesso!');
+        this.$router.push('/my-scheduled-classes');
       } catch (error) {
         console.error('Erro ao cancelar o agendamento:', error);
         alert('Erro ao cancelar o agendamento.');

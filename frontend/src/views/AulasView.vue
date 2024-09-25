@@ -1,245 +1,70 @@
 <template>
-    <section class="aulas-bg">
-
-<h1>Horários de Aulas: <span class="subTitulo">Encontre o Melhor Momento para Você!</span></h1>
-<div class="aulas">
-
-   <div class="aula carrossel">
-       <input type="radio" name="violao" id="violao1" checked>
-       <input type="radio" name="violao" id="violao2">
-       
-       <div class="aula-content violao slide1">
-           <div class="containerh2">
-               <h2>Violão</h2>
-           </div>
-           <h3>Instrutora: <span class="cargo">Mariana Oliveira</span></h3>
-           <div class="desc">
-               <div class="dia-hora">
-                   <img src="../fotos/calendar (3).png" alt="Icone de um calendário">
-                   <div class="dia">
-                       <h4>Dia das Aulas:</h4>
-                       <ul>
-                           <li>Segunda-feira</li>
-                           <li>Quarta-feira</li>
-                       </ul>
-                   </div>
-               </div>
-               <div class="dia-hora">
-                   <img src="../fotos/clock (1).png" alt="Ícone de um relógio">
-                   <div class="hora">
-                       <h4>Horários:</h4>
-                       <ul>
-                           <li>09:00-11:00</li>
-                       </ul>
-                   </div>
-               </div>
-           </div>
-           <router-link to="/register"><a href="cadastroAluno.html" class="btn-aula btn-carrossel">Agendar</a></router-link>
-       </div>
-       <div class="aula-content violao slide2">
-           <div class="containerh2">
-               <h2>Violão</h2>
-           </div>
-           <h3>Instrutor: <span class="cargo">Carlos Ferreira</span></h3>
-           <div class="desc">
-               <div class="dia-hora">
-                   <img src="../fotos/calendar (3).png" alt="Icone de um calendário">
-                   <div class="dia">
-                       <h4>Dia das Aulas:</h4>
-                       <ul>
-                           <li>Terça-feira</li>
-                           <li>Quinta-feira</li>
-                       </ul>
-                   </div>
-               </div>
-               <div class="dia-hora">
-                   <img src="../fotos/clock (1).png" alt="Ícone de um relógio">
-                   <div class="hora">
-                       <h4>Horários:</h4>
-                       <ul>
-                           <li>14:00-16:00</li>
-                       </ul>
-                   </div>
-               </div>
-           </div>
-           <router-link to="/register"><a href="cadastroAluno.html" class="btn-aula btn-carrossel">Agendar</a></router-link>
-       </div>
-
-       <!-- Controles do carrossel -->
-       <div class="controles">
-           <label for="violao1"></label>
-           <label for="violao2"></label>
-       </div>
+  <section class="aulas-bg">
+   <h1>Catálogo de Aulas</h1>
+   <div class="aulas">
+      <div v-for="aula in aulas" :key="aula._id" class="aula carrossel">
+        <div class="aula-content">
+          <div class="containerh2">
+            <h2>{{ aula.nome }}</h2>
+          </div>
+          <h3><span class="descricao-aula">{{ aula.descricao }}</span></h3>
+          
+          <div class="desc">
+            <div class="desc-content">
+              <img src="@/assets/images/user.png" alt="Icone de um calendário">
+              <div class="desc-content-value">
+                <h4>Instrutor(a): </h4>
+                <span> {{ aula.instrutorId.nome}} {{ aula.instrutorId.sobrenome }} </span>
+              </div>
+            </div>
+            <div class="desc-content">
+              <img src="@/assets/images/clock.png" alt="Ícone de um relógio">
+              <div class="desc-content-value">
+                <h4>Duração: </h4>
+                  <span>{{ aula.duracao }} {{ aula.duracao === 1 ? 'hora' : 'horas' }}</span>
+              </div>
+            </div>
+            <div class="desc-content">
+              <img src="@/assets/images/category.png" alt="Ícone de um relógio">
+              <div class="desc-content-value">
+                <h4>Categoria: </h4>
+                  <span>{{ aula.categoriaId.nome }}</span>
+              </div>
+            </div>
+          </div>
+          <router-link :to="`/register/${aula._id}`" class="btn-aula btn-carrossel">Agendar</router-link>
+        </div>
+      </div>
    </div>
-
-   <!-- Carrossel Canto -->
-   <div class="aula carrossel">
-       <input type="radio" name="canto" id="canto1" checked>
-       <input type="radio" name="canto" id="canto2">
-       
-       <div class="aula-content canto slide1">
-           <div class="containerh2">
-               <h2>Canto</h2>
-           </div>
-           <h3>Instrutora: <span class="cargo">Ana Paula Mendes</span></h3>
-           <div class="desc">
-               <div class="dia-hora">
-                   <img src="../fotos/calendar (3).png" alt="Icone de um calendário">
-                   <div class="dia">
-                       <h4>Dia das Aulas:</h4>
-                       <ul>
-                           <li>Segunda-feira</li>
-                           <li>Quarta-feira</li>
-                       </ul>
-                   </div>
-               </div>
-               <div class="dia-hora">
-                   <img src="../fotos/clock (1).png" alt="Ícone de um relógio">
-                   <div class="hora">
-                       <h4>Horários:</h4>
-                       <ul>
-                           <li>09:00-11:00</li>
-                       </ul>
-                   </div>
-               </div>
-           </div>
-           <router-link to="/register"><a href="cadastroAluno.html" class="btn-aula btn-carrossel">Agendar</a></router-link>
-       </div>
-       <div class="aula-content canto slide2">
-           <div class="containerh2">
-               <h2>Canto</h2>
-           </div>
-           <h3>Instrutor:<span class="cargo">João Pedro Santana</span></h3>
-           <div class="desc">
-               <div class="dia-hora">
-                   <img src="../fotos/calendar (3).png" alt="Icone de um calendário">
-                   <div class="dia">
-                       <h4>Dia das Aulas:</h4>
-                       <ul>
-                           <li>Terça-feira</li>
-                           <li>Quinta-feira</li>
-                       </ul>
-                   </div>
-               </div>
-               <div class="dia-hora">
-                   <img src="../fotos/clock (1).png" alt="Ícone de um relógio">
-                   <div class="hora">
-                       <h4>Horários:</h4>
-                       <ul>
-                           <li>14:00-16:00</li>
-                       </ul>
-                   </div>
-               </div>
-           </div>
-           <router-link to="/register"><a href="cadastroAluno.html" class="btn-aula btn-carrossel">Agendar</a></router-link>
-       </div>
-
-       <!-- Controles do carrossel -->
-       <div class="controles">
-           <label for="canto1"></label>
-           <label for="canto2"></label>
-       </div>
-   </div>
-
-   <!-- Divs estáticas -->
-   <div class="aula teclado">
-       <div class="containerh2">
-           <h2>Teclado</h2>
-       </div>
-       <h3>Instrutora: <span class="cargo">Beatriz Souza</span></h3>
-       <div class="desc">
-           <div class="dia-hora">
-               <img src="../fotos/calendar (3).png" alt="Icone de um calendário">
-               <div class="dia">
-                   <h4>Dia das Aulas:</h4>
-                       <ul>
-                           <li>Segunda-feira</li>
-                           <li>Quarta-feira</li>
-                           <li>Quinta-feira</li>
-                       </ul>
-               </div>
-           </div>
-           <div class="dia-hora">
-               <img src="../fotos/clock (1).png" alt="Ícone de um relógio">
-               <div class="hora">
-                   <h4>Horários:</h4>
-                       <ul>
-                           <li>16:00-20:00</li>
-                       </ul>
-               </div>
-           </div>
-       </div>
-       <router-link to="/register"><a href="cadastroAluno.html" class="btn-aula">Agendar</a></router-link>
-   </div>
-
-   <div class="aula violino">
-       <div class="containerh2">
-           <h2>Violino</h2>
-       </div>
-       <h3>Instrutora: <span class="cargo">Clara Figueiredo</span></h3>
-       <div class="desc">
-           <div class="dia-hora">
-               <img src="../fotos/calendar (3).png" alt="Icone de um calendário">
-               <div class="dia">
-                   <h4>Dia das Aulas:</h4>
-                       <ul>
-                           <li>Segunda-feira</li>
-                           <li>Quarta-feira</li>
-                           <li>Sábado</li>
-                       </ul>
-               </div>
-           </div>
-           <div class="dia-hora">
-               <img src="../fotos/clock (1).png" alt="Ícone de um relógio">
-               <div class="hora">
-                   <h4>Horários:</h4>
-                   <ul>
-                       <li>09:00-12:00</li>
-                       <li>14:00-17:00</li>
-                   </ul>
-               </div>
-           </div>
-       </div>
-       <router-link to="/register"><a href="cadastroAluno.html" class="btn-aula">Agendar</a></router-link>
-   </div>
-   
-   <div class="aula bateria">
-       <div class="containerh2">
-           <h2>Bateria</h2>
-       </div>
-       <h3>Instrutor: <span class="cargo">Rafael Lima</span></h3>
-       <div class="desc">
-           <div class="dia-hora">
-               <img src="../fotos/calendar (3).png" alt="Icone de um calendário">
-               <div class="dia">
-                   <h4>Dia das Aulas:</h4>
-                       <ul>
-                           <li>Segunda-feira</li>
-                           <li>Terça-feira</li>
-                           <li>Quinta-feira</li>
-                           <li>Sexta-feira</li>
-                       </ul>
-               </div>
-           </div>
-           <div class="dia-hora">
-               <img src="../fotos/clock (1).png" alt="Ícone de um relógio">
-               <div class="hora">
-                   <h4>Horários:</h4>
-                   <ul>
-                       <li>17:00-21:00</li>
-                   </ul>
-               </div>
-           </div>
-       </div>
-       <router-link to="/register"><a href="cadastroAluno.html" class="btn-aula">Agendar</a></router-link>
-   </div>
-
-</div>
-</section>
+  </section>
 </template>
 
 <script>
+import api from "@/utils/api"; 
+
+export default {
+  data() {
+    return {
+      aulas: [],
+    };
+  },
+  mounted() {
+    this.getAulas();
+  },
+  methods: {
+    async getAulas() {
+      try {
+        const response = await api.get('/classes/get-filtered-classes?pagina=1&aulasPorPagina=10');
+        this.aulas = response.data.aulas;
+        console.log(this.aulas); // Verifica se os dados estão corretos
+      } catch (error) {
+        console.error("Erro ao buscar as aulas:", error);
+      }
+    },
+  },
+};
 </script>
+
 
 <style scoped>
 
@@ -317,9 +142,16 @@ h3, li, h4, h2{
    font-family: "Open Sans", sans-serif;
 }
 
-.cargo{
-   display: block;
-   font-weight: 400;
+.descricao-aula {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 400;
+  line-height: 1.5rem; 
+  text-align: justify;
+  padding: 0 15px;
 }
 
 h4, .containerh2 + h3 {
@@ -329,21 +161,27 @@ h4, .containerh2 + h3 {
 }
 
 .desc{
-   padding: 0 40px;
+   padding: 0 15px;
+   margin-top: 20px;
 }
 
-.dia-hora{
+.desc-content{
    display: grid;
    grid-template-columns: 16px 1fr;
    gap: 0 10px;
 }
 
-.dia-hora img{
+.desc-content h4 {
+   display: inline;
+}
+
+.desc-content img{
  margin-top: 3px;
 }
 
-.dia{
+.desc-content-value{
    margin-bottom: 10px;
+   font-family: "Open Sans", sans-serif;
 }
 
 .btn-aula{
@@ -377,13 +215,13 @@ input[type="radio"] {
 
 /* Estilo para o conteúdo de cada slide */
 .aula-content {
-   position: absolute;
+   position: relative;
    width: 300px;
-   height: 420;
-   opacity: 0; 
-   transition: opacity 0.5s ease-in-out;
-   z-index: 1; /* Garante que o slide ativo esteja no topo */
-} 
+   height: 420px;
+   opacity: 1; /* Deixe a opacidade 1 para tornar visível */
+   z-index: 1;
+}
+
 
 
 input#violao1:checked ~ .slide1,
@@ -393,19 +231,6 @@ input#canto2:checked ~ .slide2 {
    opacity: 1;
    visibility: visible; /* Torna o slide visível quando está ativo */
    z-index: 2; /* Garante que o slide ativo esteja no topo */
-}
-
-/* Controles do carrossel */
-.controles {
-   position: absolute;
-   bottom: 10px;
-   left: 50%;
-   transform: translateX(-50%);
-   display: flex;
-   gap: 10px;
-   justify-content: center;
-   flex-direction: row;
-   z-index: 2;
 }
 
 .controles label {

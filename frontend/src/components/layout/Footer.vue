@@ -27,7 +27,7 @@
                           <ul>
                               <li><a href="#historia">Quem Somos</a></li>
                               <li><a href="/instrutores">Nossos Instrutores</a></li>
-                              <li><a href="/aulas">Nossas Aulas</a></li>
+                              <li><a href="/catalog">Nossas Aulas</a></li>
       
                           </ul>
                       </nav>

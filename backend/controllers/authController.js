@@ -36,6 +36,7 @@ exports.login = async (req, res) => {
             token, 
             userId: usuario._id,
             nome: usuario.nome,
+            sobrenome: usuario.sobrenome,
             perfilCode: usuario.perfilId.code // Retornar o código do perfil
         });
     } catch (error) {

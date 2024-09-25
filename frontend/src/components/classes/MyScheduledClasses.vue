@@ -20,7 +20,48 @@ export default {
   },
   data() {
     return {
-      calendarOptions: null,
+      calendarOptions: {
+        plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+        initialView: 'timeGridWeek',
+        locale: 'pt-br',
+        events: [],
+        slotMinTime: '00:00',
+        slotMaxTime: '24:00',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'timeGridDay,timeGridWeek,dayGridMonth',
+        },
+        titleFormat: {
+          year: 'numeric',
+          month: 'long',
+        },
+        dayHeaderFormat: {
+          weekday: 'short',
+          day: 'numeric',
+        },
+        dayHeaderContent: (args) => {
+          const dayName = args.text.slice(0, 3);
+          const dayNumber = args.text.slice(5);
+          return {
+            html: `<span style="display: block; text-transform: uppercase; margin-bottom: 5px;">${dayName}</span><span>${dayNumber}</span>`
+          };
+        },
+        buttonText: {
+          today: 'Hoje',
+          month: 'Mês',
+          week: 'Semana',
+          day: 'Dia',
+        },
+        allDaySlot: false,
+        slotLabelFormat: { 
+          hour: '2-digit', 
+          minute: '2-digit', 
+          hour12: false, 
+          hourCycle: 'h23' 
+        },
+        eventClick: this.handleEventClick,
+      },
       agendamentos: [],
     };
   },
@@ -60,48 +101,8 @@ export default {
   },
   methods: {
     setupCalendar() {
-      this.calendarOptions = {
-        plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-        initialView: 'timeGridWeek',
-        locale: 'pt-br',
-        events: this.agendamentos,
-        slotMinTime: '00:00',
-        slotMaxTime: '24:00',
-        headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'timeGridDay,timeGridWeek,dayGridMonth',
-        },
-        titleFormat: {
-          year: 'numeric',
-          month: 'long',
-        },
-        dayHeaderFormat: {
-          weekday: 'short',
-          day: 'numeric',
-        },
-        dayHeaderContent: (args) => {
-          const dayName = args.text.slice(0, 3);
-          const dayNumber = args.text.slice(5);
-          return {
-            html: `<span style="display: block; text-transform: uppercase; margin-bottom: 5px;">${dayName}</span><span>${dayNumber}</span>`
-          };
-        },
-        buttonText: {
-          today: 'Hoje',
-          month: 'Mês',
-          week: 'Semana',
-          day: 'Dia',
-        },
-        allDaySlot: false,
-        slotLabelFormat: { 
-          hour: '2-digit', 
-          minute: '2-digit', 
-          hour12: false, 
-          hourCycle: 'h23' 
-        },
-        eventClick: this.handleEventClick,
-      };
+      // Mesmo que agendamentos esteja vazio, o calendário será renderizado
+      this.calendarOptions.events = this.agendamentos.length ? this.agendamentos : [];
     },
     handleEventClick(info) {
       const agendamentoId = info.event.id;

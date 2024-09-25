@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from '@/utils/api.js'; 
+import { useRouter } from 'vue-router';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -15,7 +16,8 @@ export const useAuthStore = defineStore('auth', {
         this.token = response.data.token;
         sessionStorage.setItem('token', this.token);
 
-        this.user = { nome: response.data.nome, userId: response.data.userId };
+        this.user = { nome: response.data.nome, sobrenome: response.data.sobrenome, userId: response.data.userId };
+        console.log(this.user);
         sessionStorage.setItem('user', JSON.stringify(this.user));
         sessionStorage.setItem('usuarioId', response.data.userId); // Salva o userId separadamente para acessos diretos
         sessionStorage.setItem('perfilCode', response.data.perfilCode);
@@ -33,6 +35,8 @@ export const useAuthStore = defineStore('auth', {
       sessionStorage.removeItem('usuarioId');
     },
     checkTokenExpiration() {
+      const router = useRouter();
+
       if (!this.token) {
         return; // Se não houver token, não faça nada
       }
@@ -50,7 +54,7 @@ export const useAuthStore = defineStore('auth', {
       if (currentTime > tokenExpirationTime) {
         this.logout();
         alert('Sua sessão expirou. Faça login novamente.');
-        this.$router.push('/login');
+        router.push('/login');
       }
     },    
     decodeToken(token) {

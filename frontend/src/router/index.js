@@ -25,6 +25,7 @@ const routes = [
     path: '/',
     name: 'Home',
     component: HomeView,
+    meta: { title: 'Início' },
   },
   {
     path: '/about',
@@ -40,55 +41,62 @@ const routes = [
     path:'/instrutores',
     name: 'Instrutores',
     component: InstrutoresView,
+    meta: { title: 'Instrutores' },
   },
   {
     path: '/login',
     name: 'Login',
     component: LoginView,
+    meta: { title: 'Login' },
   },
   {
     path: '/forgot-password',
     name: 'ForgotPassword',
     component: ForgotPasswordView,
+    meta: { title: 'Esqueci Minha Senha' },
   },
   {
     path: '/reset-password/:token',
     name: 'ResetPassword',
     component: ResetPasswordView,
+    meta: { title: 'Resetar de Senha' },
   },
   {
     path: '/register',
     name: 'Register',
     component: RegisterView,
+    meta: { title: 'Cadastro' },
   },
   {
     path: '/confirm-account/:token',
     name: 'ConfirmAccount',
     component: ConfirmAccountView,
+    meta: { title: 'Confirmação de Conta' },
   },
   {
     path: '/class-details/:id',
     name: 'ClassDetails',
     component: ClassDetailsView,
+    meta: { title: 'Detalhes da Aula' },
     props: true
   },
   {
     path: '/my-scheduled-classes',
     name: 'MyScheduledClasses',
     component: MyScheduledClassesView,
-    meta: { requiresAuth: true } // Exige autenticação
+    meta: { title: 'Meus Agendamentos', requiresAuth: true } // Exige autenticação
   },
   {
     path: '/schedule-details/:id',
     name: 'ScheduleDetails',
     component: ScheduleDetailsView,
-    meta: { requiresAuth: true } // Exige autenticação
+    meta: { title: 'Detalhes do Agendamento', requiresAuth: true } // Exige autenticação
   },
   {
     path: '/user-profile',
     name: 'UserProfile',
     component: UserProfileView,
-    meta: { requiresAuth: true } // Exige autenticação
+    meta: { title: 'Meu Perfil', requiresAuth: true } // Exige autenticação
   },
   {
     path: '/admin',
@@ -105,30 +113,31 @@ const routes = [
     path: '/admin/users-management',
     name: 'Users',
     component: UserManagementView,
-    meta: { requiresAuth: true, requiresAdmin: true } 
+    meta: { requiresAuth: true, requiresAdmin: true, title: 'Gerenciamento de Usuários' } 
   },
   {
     path: '/admin/class-management',
     name: 'Classes',
     component: ClassManagementView, 
-    meta: { requiresAuth: true, requiresAdmin: true },
+    meta: { requiresAuth: true, requiresAdmin: true, title: 'Gerenciamento de Aulas' },
   },
   {
     path: '/admin/categories-management',
     name: 'ClassCategoriesManagementView',
     component: ClassCategoriesManagementView, 
-    meta: { requiresAuth: true, requiresAdmin: true },
+    meta: { title: 'Gerenciamento de Categorias', requiresAuth: true, requiresAdmin: true },
   },
   {
     path: '/admin/scheduling-management',
     name: 'SchedulingManagementView',
     component: SchedulingManagementView, 
-    meta: { requiresAuth: true, requiresAdmin: true },
+    meta: { title: 'Gerenciamento de Agendamentos', requiresAuth: true, requiresAdmin: true },
   },
   {
     path: '/catalog/',
     name: 'Catalog',
     component: CatalogView,
+    meta: { title: 'Nossas Aulas' },
     props: true
   }
   
@@ -142,7 +151,11 @@ const router = createRouter({
 // Verificação de autenticação global antes de cada navegação
 router.beforeEach((to, from, next) => {
   const token = sessionStorage.getItem('token');  // Obtém o token JWT do usuário
- 
+  
+   // Atualiza o título da aba com base no meta title da rota
+   if (to.meta && to.meta.title) {
+    document.title = to.meta.title;  // Atualiza o título da aba do navegador
+  }
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!token) {
