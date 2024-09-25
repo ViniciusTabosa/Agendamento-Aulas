@@ -15,7 +15,7 @@
         placeholder="Busque pelo nome do usuário ou da aula"
         class="search-input"
       />
-      <button @click="resetarFiltros" class="btn">Resetar Filtros</button>
+      <button @click="resetarFiltros" class="btn-reset">Resetar Filtros</button>
     </div>
 
     <!-- Tabela de Agendamentos -->
@@ -83,8 +83,8 @@
             {{ horario.hora_inicio }} às {{ horario.hora_fim }}
           </option>
         </select>
-        <button @click="salvarEdicao" class="btn" style="margin-right: 10px;">Salvar</button>
-        <button @click="fecharModal" class="btn">Cancelar</button>
+        <button @click="salvarEdicao" class="btn-save" style="margin-right: 10px;">Salvar</button>
+        <button @click="fecharModal" class="btn-cancel">Cancelar</button>
       </div>
     </div>
   </div>
@@ -207,9 +207,12 @@ export default {
 
 <style scoped>
 .agendamentos-container {
+  min-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
   padding: 20px;
   margin: 0 auto;
-  position: relative;
+  background-color: #FFFFFF;
 }
 
 .title-container {
@@ -220,10 +223,9 @@ export default {
 }
 
 .title {
-  text-align: center;
-  color: #6e56cf;
-  font-size: 2rem;
-  margin-bottom: 20px;
+  font-family: 'Bebas Neue', sans-serif;
+  color: #2C3E50;
+  font-size: 2.5rem;
 }
 
 .filters {
@@ -234,27 +236,29 @@ export default {
 }
 
 .search-input {
-  width: 50%;
+  font-family: 'Open Sans', sans-serif;
+  width: 30%;
   padding: 12px 16px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #D6EAF8;
   border-radius: 25px;
   font-size: 16px;
+  color: #2F2F2F;
   margin-right: 10px;
 }
 
-.btn {
-  background-color: #6e56cf;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 25px;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.btn-reset {
+  background-color: #F1C40F; 
+  color: #2C3E50; 
+  padding: 12px 24px; 
+  border-radius: 25px; 
+  font-weight: bold; 
+  border: 2px solid #bcddff; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease, color 0.3s ease; 
 }
 
-.btn:hover {
-  background-color: #5b3da3;
+.btn-reset:hover {
+  background-color: #d3ad04; 
 }
 
 .table-wrapper {
@@ -273,21 +277,31 @@ export default {
   padding: 10px;
   border: 1px solid #e2e8f0;
   text-align: left;
+  vertical-align: middle;
 }
 
 .category-table th {
-  background-color: #6b46c1;
+  background-color: #2C3E50;
   color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.category-table td {
+  color: #2F2F2F;
 }
 
 .actions {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
 }
 
 .action-icon {
   cursor: pointer;
   font-size: 1.2rem;
+  color: #F1C40F; 
 }
 
 .modal {
@@ -296,18 +310,77 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7); 
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000; 
 }
 
 .modal-content {
-  background: white;
+  background: #FFFFFF; 
   padding: 20px;
   border-radius: 10px;
   max-width: 500px;
   width: 100%;
+  text-align: center; 
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  font-family: 'Bebas Neue', sans-serif; 
+  color: #2C3E50; 
+  margin: 0;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  color: #2F2F2F; 
+}
+
+.btn-save, .btn-cancel, .btn-edit {
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-save {
+  background-color: #2ecc71; /* Verde */
+  color: white;
+}
+
+.btn-save:hover {
+  background-color: #27ae60; 
+}
+
+.btn-cancel {
+  background-color: #e74c3c; /* Vermelho */
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #c0392b; 
+}
+
+.btn-edit {
+  background-color: #f1c40f; /* Amarelo */
+  color: #2C3E50; 
+}
+
+.btn-edit:hover {
+  background-color: #d4ac0d; 
 }
 
 .input-field {
@@ -315,7 +388,9 @@ export default {
   width: 95%;
   padding: 10px;
   margin-bottom: 10px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #D6EAF8;
   border-radius: 5px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
 }
 </style>
