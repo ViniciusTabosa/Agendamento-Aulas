@@ -1,7 +1,9 @@
 <template>
   <div class="detalhes-aula">
     <div class="detalhes-container">
-      <h1 class="titulo">{{ aula?.nome || 'Aula não disponível' }}</h1>
+      <div class="titulo-fundo">
+        <h1 class="titulo">{{ aula?.nome || 'Aula não disponível' }}</h1>
+      </div>
       <p class="descricao">{{ aula?.descricao || 'Descrição não disponível' }}</p>
       <h3 v-if="aula?.instrutorId" class="instrutor">
         Instrutor: {{ aula.instrutorId?.nome || 'Nome não disponível' }} {{ aula.instrutorId?.sobrenome || '' }}
@@ -136,72 +138,96 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f5f2ff;
-  min-height: 100vh;
+  background-color: #F5F1E9;
+  min-height: 80vh;
 }
 
 .detalhes-container {
-  background-color: #fff;
+  background-color: #F5F1E9;
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-  max-width: 800px;
-  width: 100%;
+
+  width: 800px;
   text-align: center;
+  box-shadow: 0 4px 8px #2c3e5062;
+  position: absolute;
+}
+
+.detalhes-container h1{
+  font-family: "Bebas Neue", sans-serif;
+  color: #F5F1E9;
+}
+
+.titulo-fundo{
+  background-color: #2C3E50;
+  border-radius: 20px 20px 0px 0px;
+  width: 100%;
 }
 
 .titulo {
   font-size: 2.5rem;
-  color: #5e35b1;
   margin-bottom: 20px;
 }
 
 .descricao {
   font-size: 1.2rem;
-  color: #7e57c2;
   margin-bottom: 20px;
 }
 
 .instrutor {
   font-size: 1.3rem;
-  color: #6a1b9a;
   margin-bottom: 30px;
 }
 
+.titulo, .descricao, .instrutor{
+  font-family: "Open Sans", sans-serif;
+  color: #000;
+}
+
 .horarios-titulo {
+  font-family: "Open Sans", sans-serif;
   font-size: 1.5rem;
-  color: #512da8;
+  color: #2C3E50;
   margin-bottom: 15px;
 }
 
 .horarios-lista {
   list-style: none;
-  padding: 0;
+  padding: 0 30px 30px 30px;
 }
 
 .horario-item {
-  background-color: #ede7f6;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  background-color: #D6EAF8;
   margin: 10px 0;
   padding: 15px;
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.horario-item:hover{
+  transform: scale(1.02);
 }
 
 .agendar-btn {
-  background-color: #7e57c2;
-  color: white;
+  background-color: #2C3E50;
+  color: #D6EAF8;
   border: none;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 30px;
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s ease;
+  text-transform: uppercase;
 }
 
 .agendar-btn:hover {
-  background-color: #6a1b9a;
+  color: #fff;
+  background: linear-gradient(#2C3E50, #648db6);
 }
 
 .sem-horarios {

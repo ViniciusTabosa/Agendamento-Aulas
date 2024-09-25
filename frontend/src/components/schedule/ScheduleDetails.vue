@@ -1,6 +1,6 @@
 <template>
   <div class="detalhes-agendamento">
-    <h1>Detalhe do Agendamento</h1>
+    <h1>Detalhes do Agendamento</h1>
 
     <div v-if="agendamento">
       <p><strong>Aula:</strong> {{ agendamento.aulaId.nome }}</p>
@@ -106,15 +106,18 @@ export default {
 .detalhes-agendamento {
   max-width: 800px;
   margin: 40px auto;
-  padding: 20px;
+  padding: 30px;
   background-color: #f9f9f9;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px #2c3e5062;
+  font-family: 'Open Sans', sans-serif;
 }
 
 h1 {
   text-align: center;
-  color: #5e35b1;
+  color: #2C3E50;
+  font-family: "Bebas Neue", sans-serif;
+  
 }
 
 .botoes-acoes {
@@ -125,25 +128,36 @@ h1 {
 }
 
 .cancelar-btn, .reagendar-btn, .confirmar-reagendar-btn {
-  background-color: #7e57c2;
-  color: white;
-  border: none;
+  color: #D6EAF8;
+  background-color: #2C3E50;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 30px;
+  border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-right: 10px;
+  text-transform: uppercase;
+}
+
+.cancelar-btn{
+  background-color: #D6EAF8;
+  color: #000;
 }
 
 .cancelar-btn:hover {
-  background-color: #d32f2f;
+  background-color: #e47d7d;
 }
 
 .reagendar-btn:hover, .confirmar-reagendar-btn:hover {
-  background-color: #6a1b9a;
+  background: linear-gradient(#2C3E50, #648db6);
 }
 
 .reagendamento {
   margin-top: 20px;
+}
+
+.reagendamento h2{
+  color: #2C3E50;
 }
 
 .horarios-lista {
@@ -153,11 +167,16 @@ h1 {
 
 .horario-item {
   margin: 10px 0;
-  padding: 10px;
-  background-color: #ede7f6;
-  border-radius: 5px;
+  padding: 15px;
+  background-color: #D6EAF8;
+  border-radius: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-weight: bold;
+}
+
+.confirmar-reagendar-btn{
+  margin-left: 10px;
 }
 </style>

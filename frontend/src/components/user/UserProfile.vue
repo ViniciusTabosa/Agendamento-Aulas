@@ -199,12 +199,10 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-
 .user-profile-container {
   display: flex;
   max-width: 1000px;
-  margin: 40px auto;
+  margin: 120px auto;
   background-color: #F5F1E9;
   border-radius: 10px;
   box-shadow: 0 4px 8px #2c3e5062;
@@ -212,6 +210,8 @@ export default {
 }
 
 .menu-lateral {
+  font-family: "Open Sans", sans-serif;
+  text-align: center;
   width: 200px;
   border-right: 1px solid #ddd;
   padding: 20px;
@@ -238,9 +238,18 @@ export default {
   border-radius: 10px;
 }
 
+
 .conteudo {
+  font-family: "Open Sans", sans-serif;
+  text-align: center;
   flex-grow: 1;
   padding: 20px;
+}
+
+.profile-section{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .conteudo h2{
@@ -271,31 +280,34 @@ input {
 
 .save-btn,
 .cancel-btn {
-  background-color: #F1C40F;
+  color: #D6EAF8;
+  background-color: #2C3E50;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 30px;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin-right: 10px;
+  text-transform: uppercase;
 }
 
 .save-btn:hover {
   color: #fff;
-  background-color: #6a1b9a;
+  background: linear-gradient(#2C3E50, #648db6);
 }
 
 .cancel-btn {
   background-color: #D6EAF8;
+  color: #000;
 }
 
 .cancel-btn:hover {
-  background-color: #b71c1c;
+  background-color: #e47d7d;
 }
 
 .action-buttons {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   margin-top: 20px;
 }
 
