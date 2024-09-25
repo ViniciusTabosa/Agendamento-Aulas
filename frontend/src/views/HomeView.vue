@@ -81,7 +81,7 @@
     padding-right: 50px;
     margin-top: 50px;
     gap: 50px;
-    margin-bottom: 80px;
+    margin-bottom: 150px;
 
 }
 

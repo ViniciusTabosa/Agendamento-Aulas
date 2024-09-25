@@ -176,6 +176,10 @@ h1 {
   font-weight: bold;
 }
 
+.horario-item:hover{
+  transform: scale(1.02);
+}
+
 .confirmar-reagendar-btn{
   margin-left: 10px;
 }
