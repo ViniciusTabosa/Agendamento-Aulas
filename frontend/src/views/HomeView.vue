@@ -195,6 +195,7 @@
 }
 
 .historia-titulo, .historia-subtitulo, .h3{
+    font-weight: bold;
     color: #F5F1E9;
 }
 
@@ -205,7 +206,7 @@
     font-family: "Open Sans",sans-serif;
     font-size: 1rem;
     max-width: 80ch;
-    color: rgb(7, 7, 7);
+    color: #F5F1E9;
     
 }
 

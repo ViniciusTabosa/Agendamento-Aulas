@@ -211,7 +211,7 @@
       font-family: "Open sans", sans-serif;
       font-size: 1rem;
       max-width: 40ch;
-      color: #000;
+      color: #F5F1E9;
   }
   
   .form{
@@ -234,6 +234,7 @@
   
   .campo{
       flex: 1;
+      color: #F5F1E9;
   }
   
   .nome-sobrenome-form input{
@@ -242,7 +243,7 @@
       display: inline-block;
       margin-bottom: 10px;
   }
-  
+
   .cpf input, .email input, .senha input{
       width: 495px;
       height: 30px;
@@ -250,6 +251,12 @@
       margin-bottom: 10px;
   }
   
+  .cpf label, .email label, .senha label{
+    color: #F5F1E9;
+  }
+
+  
+
   input{
       border-radius: 15px;
       border: none;

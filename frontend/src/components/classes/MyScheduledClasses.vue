@@ -135,6 +135,8 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 .meus-agendamentos {
   max-width: 900px;
   margin: 40px auto;
@@ -142,8 +144,10 @@ export default {
 
 h1 {
   text-align: center;
-  color: #5e35b1;
+  color: #2C3E50;
   margin-bottom: 20px;
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 100;
 }
 
 .fc-toolbar-title {
