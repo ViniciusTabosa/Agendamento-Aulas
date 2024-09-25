@@ -19,15 +19,53 @@
           <span class="arrow-down" :class="{ open: isDropdownOpen }">&#9662;</span>
         </div>
         <ul v-if="isDropdownOpen" class="dropdown-menu">
-          <li><router-link to="/user-profile">Meu Perfil</router-link></li>
-          <li v-if="!isAdmin"><router-link to="/my-scheduled-classes">Meus Agendamentos</router-link></li>
-          <li v-if="isAdmin"><router-link to="/admin/users-management">Gerenciar Usuários</router-link></li>
-          <li v-if="isAdmin"><router-link to="/admin/class-management">Gerenciar Aulas</router-link></li>
-          <li v-if="isAdmin"><router-link to="/admin/categories-management">Gerenciar Categorias</router-link></li>
-          <li v-if="isAdmin"><router-link to="/admin/scheduling-management">Gerenciar Agendamentos</router-link></li>
-          <li><a class="logout-link" @click="handleLogout">Sair</a></li>
+          <div class="menu-usuario">
+            <img src="../../fotos/user-avatar.png" alt="">
+            <div class="menu-desc">
+              <li><router-link to="/user-profile" class="link">Meu Perfil</router-link></li>
+            </div>
+          </div>
+          <div class="menu-usuario">
+            <img src="../../fotos/calendar.png" alt="" v-if="!isAdmin">
+            <div class="menu-desc">
+              <li v-if="!isAdmin"><router-link to="/my-scheduled-classes" class="link">Meus Agendamentos</router-link></li>
+            </div>
+          </div>
+          
+            <div class="menu-usuario">
+              <img src="../../fotos/profile.png" alt="" v-if="isAdmin">
+              <div class="menu-desc">
+                <li v-if="isAdmin"><router-link to="/admin/users-management" class="link">Gerenciar Usuários</router-link></li>
+              </div>
+            </div>
+            <div class="menu-usuario2">
+              <img src="../../fotos/project.png" alt="" v-if="isAdmin">
+              <div class="menu-desc">
+                <li v-if="isAdmin"><router-link to="/admin/class-management" class="link">Gerenciar Aulas</router-link></li>
+              </div>
+            </div>
+            <div class="menu-usuario">
+              <img src="../../fotos/layers.png" alt="" v-if="isAdmin">
+              <div class="menu-desc">
+                <li v-if="isAdmin"><router-link to="/admin/categories-management" class="link">Gerenciar Categorias</router-link></li>
+              </div>
+            </div>
+            <div class="menu-usuario">
+              <img src="../../fotos/group.png" alt="" v-if="isAdmin">
+              <div class="menu-desc">
+                <li v-if="isAdmin"><router-link to="/admin/scheduling-management" class="link">Gerenciar Agendamentos</router-link></li>
+              </div>
+            </div>
+         
+          <div class="menu-usuario">
+            <img src="../../fotos/exit.png" alt="">
+            <div class="menu-desc">
+              <li><a class="logout-link link" @click="handleLogout">Sair</a></li>
+            </div>
+          </div>
         </ul>
       </div>
+
 
       <!-- Botões de login e cadastro -->
       <div class="header-btn" v-else>
@@ -85,21 +123,35 @@ export default {
 .user-menu{
   position: absolute;
   right: 0;
+}
+
+.link{
+
+  padding: 5px;
+  color: #F5F1E9;
+
+}
+
+.link:hover{
+ color: #f5f1e99a;
+}
+
+.link, .username{
+  font-family: "Open Sans", sans-serif;
+  font-size: 1rem;
 
 }
 
 .username {
-  font-family: "Open Sans", sans-serif;
-  font-size: 1rem;
-
   color: #2C3E50;
   margin-right: 10px;
 }
 
 .user-info{
-  margin-right: 60px;
+  margin-right: 130px;
   cursor: pointer;
-  margin-top: -10px;
+  margin-top: -8px;
+  position: relative;
 }
 
 .dropdown-menu{
@@ -109,11 +161,46 @@ export default {
   z-index: 1000;
   font-family: "Open Sans", sans-serif;
   font-size: 1rem;
-   margin-left: 10px;
+   margin-left:-50px;
+   margin-top: 20px;
+   height: auto;
+   width: auto;
+   animation: animation 0.5s ease-out normal none;
+   padding: 20px;
+   background: #2C3E50;
+   border-radius: 20px;
+   box-shadow: 5px 5px 10px rgba(71, 85, 110, 0.9);
+
 }
+
+@keyframes animation{
+  from {
+    height: 0;
+  }
+  to {
+    height: auto; /* Define a altura máxima que o menu pode alcançar */
+  }
+}
+
 
 .logout-link {
   cursor: pointer;
+}
+
+
+
+.menu-usuario, .menu-usuario2{
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 0 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.menu-usuario:last-child, 
+.menu-usuario2:last-child{
+    margin-bottom: 0 ;
+    
 }
 
 .header-bg{
@@ -194,4 +281,6 @@ export default {
 .btn-cadastro:hover{
     background: linear-gradient(#2C3E50, #648db6);
 }
+
+
 </style>
