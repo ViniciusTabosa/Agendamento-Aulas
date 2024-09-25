@@ -3,6 +3,8 @@
     <!-- Botão para adicionar nova aula -->
     <div class="title-container">
       <h1 class="title">Gerenciamento de Aulas</h1>
+      <button @click="abrirModalNovaAula" class="btn" style="margin-left: 5px;">Nova Aula</button>
+
     </div>   
 
     <!-- Input de Busca e Filtro por Categoria -->
@@ -20,8 +22,7 @@
           {{ categoria.nome }}
         </option>
       </select>
-      <button @click="resetarFiltros" class="btn">Resetar Filtros</button>
-      <button @click="abrirModalNovaAula" class="btn" style="margin-left: 5px;">Nova Aula</button>
+      <button @click="resetarFiltros" class="btn btn-reset">Resetar Filtro</button>
     </div>
 
     <!-- Tabela de Aulas -->
@@ -74,20 +75,26 @@
     <!-- Modal para visualizar aula -->
     <div v-if="verModal" class="modal">
       <div class="modal-content">
-        <h2>Detalhes da Aula</h2>
-        <p><strong>Nome:</strong> {{ aulaSelecionada.nome }}</p>
-        <p><strong>Descrição:</strong> {{ aulaSelecionada.descricao }}</p>
-        <p><strong>Duração:</strong> {{ aulaSelecionada.duracao }} {{ aulaSelecionada.duracao > 1 ? 'horas' : 'hora' }}</p>
-        <p><strong>Categoria:</strong> {{ aulaSelecionada.categoriaId?.nome }}</p>
-        <p><strong>Instrutor:</strong> {{ aulaSelecionada.instrutorId?.nome }} {{ aulaSelecionada.instrutorId?.sobrenome }}</p>
-        <button @click="fecharModal" class="btn">Fechar</button>
+        <div class="modal-header">
+          <h2>Detalhes da Aula</h2>
+        </div>
+        <div class="modal-p">
+          <p><span>Nome:</span>{{ aulaSelecionada.nome }}</p>
+          <p><span>Descrição:</span>{{ aulaSelecionada.descricao }}</p>
+          <p><span>Duração:</span>{{ aulaSelecionada.duracao }} {{ aulaSelecionada.duracao > 1 ? 'horas' : 'hora' }}</p>
+          <p><span>Categoria:</span>{{ aulaSelecionada.categoriaId?.nome }}</p>
+          <p><span>Instrutor:</span>{{ aulaSelecionada.instrutorId?.nome }} {{ aulaSelecionada.instrutorId?.sobrenome }}</p>
+        </div>
+        <button @click="fecharModal" class="btn-cancel">Fechar</button>
       </div>
     </div>
 
     <!-- Modal para editar aula -->
     <div v-if="editarModal" class="modal">
       <div class="modal-content">
-        <h2>Editar Aula</h2>
+        <div class="modal-header">
+          <h2>Editar Aula</h2>
+        </div>
         <input v-model="aulaEditando.nome" placeholder="Nome" class="input-field" />
         <textarea v-model="aulaEditando.descricao" placeholder="Descrição" class="input-field"></textarea>
         <input v-model="aulaEditando.duracao" placeholder="Duração (horas)" class="input-field" />
@@ -101,8 +108,8 @@
             {{ instrutor.nome }} {{ instrutor.sobrenome }}
           </option>
         </select>
-        <button @click="salvarEdicao" class="btn" style="margin-right: 10px;">Salvar</button>
-        <button @click="fecharModal" class="btn">Cancelar</button>
+        <button @click="salvarEdicao" class="btn-save" style="margin-right: 10px;">Salvar</button>
+        <button @click="fecharModal" class="btn-cancel">Cancelar</button>
       </div>
     </div>
 
@@ -125,8 +132,8 @@
             {{ instrutor.nome }} {{ instrutor.sobrenome }}
           </option>
         </select>
-        <button @click="salvarNovaAula" class="btn" style="margin-right: 10px;">Salvar</button>
-        <button @click="fecharModalNovaAula" class="btn">Cancelar</button>
+        <button @click="salvarNovaAula" class="btn-save" style="margin-right: 10px;">Salvar</button>
+        <button @click="fecharModalNovaAula" class="btn-cancel">Cancelar</button>
       </div>
     </div>
 
@@ -168,19 +175,19 @@
                 <button 
                   v-if="isEditing" 
                   @click="salvarEdicaoHorario(horario)" 
-                  class="btn"
+                  class="btn-save"
                 >Salvar</button>
                 <button 
                   v-if="isEditing" 
                   @click="cancelarEdicaoHorario" 
-                  class="btn"
+                  class="btn-cancel"
                 >Cancelar</button>
 
                 <!-- Botão de Editar aparece quando não está editando o horário atual -->
                 <button 
                   v-else 
                   @click="editarHorario(horario)" 
-                  class="btn"
+                  class="btn-edit"
                   :disabled="isAdding" 
                 >Editar</button>
 
@@ -188,7 +195,7 @@
                 <button 
                   v-if="!isEditing" 
                   @click="excluirHorario(horario._id)" 
-                  class="btn btn-delete"
+                  class="btn-delete"
                 >Excluir</button>
               </div>
             </div>
@@ -197,7 +204,7 @@
           <!-- Exibir a mensagem caso não existam horários para o dia selecionado -->
           <div v-else-if="selectedDay !== '' && horariosFiltrados.length === 0 && !isAdding && !isEditing" class="no-horarios-container">
             <i class="fas fa-exclamation-triangle warning-icon"></i>
-            <p>Nenhum horário cadastrado para este dia</p>
+            <p class="no-horarios-p">Nenhum horário cadastrado para este dia</p>
           </div>
 
 
@@ -205,7 +212,7 @@
             <!-- Botão de adicionar novo horário -->
             <button 
               @click="abrirFormularioAdicionar" 
-              class="btn" 
+              class="btn btn-add" 
               :disabled="isEditing">
               Adicionar Horário
             </button>
@@ -214,12 +221,12 @@
           <!-- Formulário de adição de horário -->
           <div v-if="isAdding">
             <hr>
-            <h3 v-if="isAdding">Adicionar Novo Horário</h3>
+            <h3 v-if="isAdding" class="add-horario-p">Adicionar Novo Horário</h3>
             <div class="horario-edit-container">
               <input type="time" v-model="horarioEditando.hora_inicio" placeholder="Hora Início" class="input-field" />
               <input type="time" v-model="horarioEditando.hora_fim" placeholder="Hora Fim" class="input-field" />
-              <button @click="salvarEdicaoHorario" class="btn">Salvar</button>
-              <button @click="cancelarEdicaoHorario" class="btn">Cancelar</button>
+              <button @click="salvarEdicaoHorario" class="btn-save">Salvar</button>
+              <button @click="cancelarEdicaoHorario" class="btn-cancel">Cancelar</button>
             </div>
           </div>
         </div>
@@ -513,12 +520,16 @@ export default {
 
 <style scoped>
 .aulas-container {
+  min-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
   padding: 20px;
   margin: 0 auto;
   position: relative;
+  background-color: #FFFFFF;
 }
 
-.title-container{
+.title-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -526,17 +537,24 @@ export default {
 }
 
 .title {
-  text-align: center;
-  color: #6e56cf;
-  font-size: 2rem;
-  margin-bottom: 20px;
+  font-family: 'Bebas Neue', sans-serif;
+  color: #2C3E50;
+  font-size: 2.5rem;
 }
 
 .nova-aula-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 20px;
+  background-color: #2C3E50;
+  color: white;
+  padding: 16px 32px;
+  border-radius: 25px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nova-aula-btn:hover {
+  background-color: #1F2C3C;
 }
 
 .filters {
@@ -548,18 +566,20 @@ export default {
 
 .search-input,
 .filter-select {
+  font-family: 'Open Sans', sans-serif;
   width: 30%;
   padding: 12px 16px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #D6EAF8;
   border-radius: 25px;
   font-size: 16px;
+  color: #2F2F2F;
   margin-right: 10px;
 }
 
 .btn {
-  background-color: #6e56cf;
+  background-color: #2C3E50;
   color: white;
-  padding: 10px 20px;
+  padding: 16px 32px;
   border-radius: 25px;
   font-weight: bold;
   border: none;
@@ -568,18 +588,36 @@ export default {
 }
 
 .btn:hover {
-  background-color: #5b3da3;
+  background-color: #1F2C3C;
+}
+
+.btn-reset {
+  background-color: #F1C40F; 
+  color: #2C3E50; 
+  padding: 12px 24px; 
+  border-radius: 25px; 
+  font-weight: bold; 
+  border: 2px solid #bcddff; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+.btn-reset:hover {
+  background-color: #d3ad04; 
+
 }
 
 .table-wrapper {
   overflow-x: auto;
   margin-top: 20px;
+  border-radius: 20px;
 }
 
 .class-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: auto; /* Permite que a tabela se adapte ao conteúdo */
+  margin: 0 auto;
+  border-radius: 20px;
 }
 
 .class-table th,
@@ -588,21 +626,41 @@ export default {
   border: 1px solid #e2e8f0;
   text-align: left;
   vertical-align: middle; /* Garante que o conteúdo das células fique centralizado verticalmente */
+  font-family: 'Open Sans', sans-serif;
+
 }
 
 .class-table th {
-  background-color: #6b46c1;
+  background-color: #2C3E50;
   color: white;
-  white-space: nowrap; /* Evita que o cabeçalho quebre linhas */
+  padding: 10px;
+  text-align: center; /* Centraliza o conteúdo do cabeçalho */
 }
 
 .class-table td {
-  white-space: nowrap; /* Impede que o texto nas células quebre em múltiplas linhas */
+  color: #2F2F2F;
 }
+
+.pagination-container {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.class-table th:first-child{
+  border-radius: 20px 0px 0px 0px;
+}
+
+.class-table th:last-child{
+  border-radius: 0px 20px 0px 0px;
+}
+
+
+
+
 
 .actions {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
   align-items: center; /* Centraliza verticalmente os ícones */
 }
@@ -610,6 +668,7 @@ export default {
 .action-icon {
   cursor: pointer;
   font-size: 1.2rem;
+  color: #F1C40F; 
 }
 
 .modal {
@@ -618,25 +677,130 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7); 
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000; 
+}
+
+.modal-content {
+  background: #FFFFFF; /* Cor de fundo do modal */
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center; /* Centraliza o texto dentro do modal */
+}
+
+.modal-content p {
+  margin-bottom: 10px;
+  
+}
+
+.modal-p{
+  text-align: left; 
+  font-family:"Open Sans", sans-serif;
+  color:#2F2F2F;
+}
+
+.modal-p span {
+  font-weight: bold;
+  margin-right: 2px;
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  font-family: 'Bebas Neue', sans-serif; /* Fonte para o título */
+  color: #2C3E50; /* Cor do texto do título */
+  margin: 0;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centraliza o conteúdo verticalmente */
+  align-items: center; /* Centraliza o conteúdo horizontalmente */
+  color: #2F2F2F; /* Cor do texto */
+}
+
+.no-horarios-message {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.2rem;
+  color: #333;
   margin-bottom: 10px;
 }
 
-.modal-content {
-  background: white;
-  padding: 0 20px 20px 20px;
-  border-radius: 10px;
-  max-width: 500px;
-  width: 100%;
+.no-horarios-p{
+  margin-bottom: 20px;
+}
+
+.add-horario-p{
+  margin: 10px;
+  color: #2C3E50;
+}
+
+.warning-icon {
+  font-size: 3rem;
+  color: #f39c12;
+  margin-bottom: 10px;
+}
+
+.btn-cancel, .btn-delete {
+  background-color: #e74c3c; /* Vermelho */
+  color: white;
+  padding: 16px 32px;
+  border-radius: 25px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 5px;
+}
+
+.btn-cancel, .btn-delete:hover {
+  background-color: #c0392b; /* Vermelho escuro para hover */
+}
+
+.btn-save {
+  background-color: #2ecc71; /* Verde */
+  color: white;
+  padding: 16px 32px;
+  border-radius: 25px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 5px;
+}
+
+.btn-save:hover {
+  background-color: #27ae60; /* Verde escuro para hover */
+}
+
+.btn-edit {
+  background-color: #f1c40f; /* Amarelo */
+  color: #2C3E50; /* Cor do texto */
+  padding: 16px 32px;
+  border-radius: 25px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-edit:hover {
+  background-color: #d4ac0d; /* Amarelo escuro para hover */
+}
+
+.btn-add{
+  margin-top: 10px;
 }
 
 .input-field {
@@ -644,56 +808,10 @@ export default {
   width: 95%;
   padding: 10px;
   margin-bottom: 10px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #D6EAF8;
   border-radius: 5px;
-}
-
-.btn-delete {
-  background-color: #e74c3c;
-}
-
-.horario-edit-container {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* Espaçamento entre os elementos */
-}
-
-.no-horarios-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-}
-
-.warning-icon {
-  font-size: 3rem;
-  color: #f39c12; /* cor de aviso, você pode alterar */
-  margin-bottom: 10px;
-}
-
-.no-horarios-container p {
-  font-size: 1.2rem;
-  color: #333;
-}
-
-.btn {
-  padding: 8px 16px;
-  background-color: #6e56cf;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background-color: #5b3da3;
-}
-
-
-.input-field {
-  margin-bottom: 10px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
 }
 
 </style>

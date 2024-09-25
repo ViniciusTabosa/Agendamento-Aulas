@@ -58,62 +58,86 @@ export default {
 
 <style scoped>
 .reset-password-container {
-  width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #fbfaff;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 h2 {
-  color: #644fc1;
-  text-align: center;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2rem;
+  color: #2C3E50;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+form {
+  background-color: #F5F1E9;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 5px 5px 20px rgba(71, 94, 136, 0.9);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .form-group {
-  margin-bottom: 15px;
-  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 label {
-  display: block;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1rem;
   margin-bottom: 5px;
-  text-align: left;
-  color: #5746af;
+  color: #2C3E50;
 }
 
 input {
   width: 100%;
+  height: 35px;
   padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #d7cff9;
-  font-size: 14px;
+  border: none;
+  border-radius: 15px;
+  background-color: #EBE8E1;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+  border: 2px solid #F1C40F;
 }
 
 .submit-btn {
-  background-color: #6e56cf;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 25px;
+  padding: 16px 32px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.9rem;
+  background-color: #F1C40F;
+  color: #2C3E50;
   border: none;
+  border-radius: 30px;
   cursor: pointer;
-  width: 100%;
+  text-transform: uppercase;
 }
 
 .submit-btn:hover {
-  background-color: #644fc1;
+  background: linear-gradient(#F1C40F, #e6760e);
 }
 
 .success {
+  margin-top: 20px;
   color: green;
-  text-align: center;
-  margin-top: 10px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1rem;
 }
 
 .error {
+  margin-top: 20px;
   color: red;
-  text-align: center;
-  margin-top: 10px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1rem;
 }
 </style>

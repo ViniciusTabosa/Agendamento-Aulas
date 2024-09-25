@@ -1,20 +1,15 @@
 <template>
   <div class="usuarios-container">
-    
+
     <div class="title-container">
       <h1 class="title">Gerenciamento de Usuários</h1>
       <button @click="abrirModalNovoUsuario" class="btn" style="margin-left: 5px;">Novo Usuário</button>
-    </div>   
+    </div>
 
     <!-- Input de Busca -->
     <div class="search-box">
-      <input
-        type="text"
-        v-model="searchQuery"
-        @input="buscarUsuario"
-        placeholder="Digite o e-mail ou CPF do usuário"
-        class="search-input"
-      />
+      <input type="text" v-model="searchQuery" @input="buscarUsuario" placeholder="Digite o e-mail ou CPF do usuário"
+        class="search-input" />
 
       <!-- Dropdown para seleção de perfil -->
       <select v-model="selectedPerfil" @change="buscarUsuario" class="filter-select">
@@ -22,8 +17,8 @@
         <option v-for="perfil in perfis" :key="perfil._id" :value="perfil._id">{{ perfil.nome }}</option>
       </select>
 
-      <button @click="resetarFiltro" class="btn">Resetar Filtro</button>      
-      
+      <button @click="resetarFiltro" class="btn-reset">Resetar Filtro</button>
+
     </div>
 
     <!-- Tabela de Usuários -->
@@ -61,57 +56,62 @@
     </div>
 
     <!-- Componente de Paginação -->
-    <PaginationComponent
-      :paginaAtual="paginaAtual"
-      :totalPaginas="totalPaginas"
-      :totalRegistros="totalUsuarios"
-      :registrosPorPagina="usuariosPorPagina"
-      @pagina-trocada="paginaAtual = $event; buscarUsuarios(false)"
-    />
+    <PaginationComponent :paginaAtual="paginaAtual" :totalPaginas="totalPaginas" :totalRegistros="totalUsuarios"
+      :registrosPorPagina="usuariosPorPagina" @pagina-trocada="paginaAtual = $event; buscarUsuarios(false)" />
 
     <!-- Modal para visualizar o usuário -->
     <div v-if="verModal" class="modal">
       <div class="modal-content">
-        <h2>Detalhes do Usuário</h2>
-        <p><strong>Nome:</strong> {{ usuarioSelecionado.nome }} {{ usuarioSelecionado.sobrenome }}</p>
-        <p><strong>E-mail:</strong> {{ usuarioSelecionado.email }}</p>
-        <p><strong>CPF:</strong> {{ formatarCPF(usuarioSelecionado.cpf) }}</p>
-        <p><strong>Perfil:</strong> {{ usuarioSelecionado.perfilId?.nome }}</p>
-        <button @click="fecharModal" class="btn">Fechar</button>
+        <div class="modal-header">
+          <h2>Detalhes do Usuário</h2>
+        </div>
+        <div class="modal-p">
+          <p><span>Nome:</span> {{ usuarioSelecionado.nome }} {{ usuarioSelecionado.sobrenome }}</p>
+          <p><span>E-mail</span>: {{ usuarioSelecionado.email }}</p>
+          <p><span>CPF:</span> {{ formatarCPF(usuarioSelecionado.cpf) }}</p>
+          <p><span>Perfil:</span> {{ usuarioSelecionado.perfilId?.nome }}</p>
+        </div>
+        <button @click="fecharModal" class="btn btn-cancel">Fechar</button>
       </div>
     </div>
 
     <!-- Modal para editar o usuário -->
     <div v-if="editarModal" class="modal">
       <div class="modal-content">
-        <h2>Editar Usuário</h2>
+        <div class="modal-header">
+          <h2>Editar Usuário</h2>
+        </div>
         <input v-model="usuarioEditando.nome" placeholder="Nome" class="input-field" />
         <input v-model="usuarioEditando.sobrenome" placeholder="Sobrenome" class="input-field" />
         <input v-model="usuarioEditando.email" placeholder="E-mail" class="input-field" />
-        <input v-model="usuarioEditando.cpf" @input="usuarioEditando.cpf = formatarCPF(usuarioEditando.cpf)" placeholder="CPF" class="input-field"/>
-        <input v-model="usuarioEditando.senha" placeholder="Senha" class="input-field" type ="password" />
+        <input v-model="usuarioEditando.cpf" @input="usuarioEditando.cpf = formatarCPF(usuarioEditando.cpf)"
+          placeholder="CPF" class="input-field" />
+        <input v-model="usuarioEditando.senha" placeholder="Senha" class="input-field" type="password" />
         <select v-model="usuarioEditando.perfilId" class="input-field">
           <option v-for="perfil in perfis" :key="perfil._id" :value="perfil._id">{{ perfil.nome }}</option>
         </select>
-        <button @click="salvarEdicao" class="btn" style="margin-right: 10px;">Salvar</button>
-        <button @click="fecharModal" class="btn">Cancelar</button>
+        <button @click="salvarEdicao" class="btn btn-save" style="margin-right: 10px;">Salvar</button>
+        <button @click="fecharModal" class="btn btn-cancel">Cancelar</button>
       </div>
     </div>
 
     <!-- Modal para adicionar novo usuário -->
     <div v-if="novoUsuarioModal" class="modal">
       <div class="modal-content">
-        <h2>Novo Usuário</h2>
+        <div class="modal-header">
+          <h2>Novo Usuário</h2>
+        </div>
         <input v-model="novoUsuario.nome" placeholder="Nome" class="input-field" />
         <input v-model="novoUsuario.sobrenome" placeholder="Sobrenome" class="input-field" />
         <input v-model="novoUsuario.email" placeholder="E-mail" class="input-field" />
-        <input v-model="novoUsuario.cpf" @input="novoUsuario.cpf = formatarCPF(novoUsuario.cpf)" placeholder="CPF" class="input-field" />
+        <input v-model="novoUsuario.cpf" @input="novoUsuario.cpf = formatarCPF(novoUsuario.cpf)" placeholder="CPF"
+          class="input-field" />
         <input v-model="novoUsuario.senha" placeholder="Senha" class="input-field" type="password" />
         <select v-model="novoUsuario.perfilId" class="input-field">
           <option v-for="perfil in perfis" :key="perfil._id" :value="perfil._id">{{ perfil.nome }}</option>
         </select>
-        <button @click="salvarNovoUsuario" class="btn" style="margin-right: 10px;">Salvar</button>
-        <button @click="fecharModalNovoUsuario" class="btn">Cancelar</button>
+        <button @click="salvarNovoUsuario" class="btn btn-save" style="margin-right: 10px;">Salvar</button>
+        <button @click="fecharModalNovoUsuario" class="btn btn-cancel">Cancelar</button>
       </div>
     </div>
   </div>
@@ -119,7 +119,7 @@
 
 <script>
 import PaginationComponent from '@/components/shared/Pagination.vue';
-import api from "@/utils/api"; 
+import api from "@/utils/api";
 
 export default {
   name: 'UserManagementComponent',
@@ -161,9 +161,9 @@ export default {
         const queryParam = `?pagina=${this.paginaAtual}&usuariosPorPagina=${this.usuariosPorPagina}`;
         const searchParam = this.searchQuery ? `&searchQuery=${encodeURIComponent(this.searchQuery)}` : '';
         const perfilParam = this.selectedPerfil ? `&perfilId=${this.selectedPerfil}` : '';
-  
+
         const response = await api.get(`/usuarios${queryParam}${searchParam}${perfilParam}`);
-        
+
         this.usuarios = response.data.usuarios;
         this.totalUsuarios = response.data.totalUsuarios;
         this.totalPaginas = Math.ceil(this.totalUsuarios / this.usuariosPorPagina);
@@ -318,12 +318,17 @@ export default {
 
 <style scoped>
 .usuarios-container {
+  min-height: calc(100vh - 100px);
+  /* Calcula a altura da viewport menos o tamanho do header e footer */
+  display: flex;
+  flex-direction: column;
   padding: 20px;
   margin: 0 auto;
   position: relative;
+  background-color: #FFFFFF;
 }
 
-.title-container{
+.title-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -331,17 +336,24 @@ export default {
 }
 
 .title {
-  text-align: center;
-  color: #6e56cf;
-  font-size: 2rem;
-  margin-bottom: 20px;
+  font-family: 'Bebas Neue', sans-serif;
+  color: #2C3E50;
+  font-size: 2.5rem;
 }
 
 .novo-usuario-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 20px;
+  background-color: #2C3E50;
+  color: white;
+  padding: 16px 32px;
+  border-radius: 25px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.novo-usuario-btn:hover {
+  background-color: #1F2C3C;
 }
 
 .search-box {
@@ -349,21 +361,25 @@ export default {
   justify-content: left;
   align-items: center;
   margin-bottom: 20px;
+
 }
 
-.search-input {
-  width: 70%;
+.search-input,
+.filter-select {
+  font-family: 'Open Sans', sans-serif;
+  width: 30%;
   padding: 12px 16px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #D6EAF8;
   border-radius: 25px;
   font-size: 16px;
+  color: #2F2F2F;
   margin-right: 10px;
 }
 
 .btn {
-  background-color: #6e56cf;
+  background-color: #2C3E50;
   color: white;
-  padding: 10px 20px;
+  padding: 16px 32px;
   border-radius: 25px;
   font-weight: bold;
   border: none;
@@ -372,22 +388,30 @@ export default {
 }
 
 .btn:hover {
-  background-color: #5b3da3;
+  background-color: #1F2C3C;
 }
 
-.filter-select {
-  width: 30%;
-  padding: 12px 16px;
-  border: 2px solid #e2e8f0;
+.btn-reset {
+  background-color: #F1C40F;
+  color: #2C3E50;
+  padding: 12px 24px;
   border-radius: 25px;
-  font-size: 16px;
-  margin-right: 10px;
+  font-weight: bold;
+  border: 2px solid #bcddff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-reset:hover {
+  background-color: #d3ad04;
+
 }
 
 
 .table-wrapper {
   overflow-x: auto;
   margin-top: 20px;
+  border-radius: 20px;
 }
 
 .user-table {
@@ -401,21 +425,53 @@ export default {
   padding: 10px;
   border: 1px solid #e2e8f0;
   text-align: left;
+  vertical-align: middle;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .user-table th {
-  background-color: #6b46c1;
+  background-color: #2C3E50;
   color: white;
+  padding: 10px;
+  text-align: center;
 }
+
+.user-table td {
+  color: #2F2F2F;
+}
+
+.user-table td {
+  color: #2F2F2F;
+}
+
+.pagination-container {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.user-table th:first-child{
+  border-radius: 20px 0px 0px 0px;
+}
+
+.user-table th:last-child{
+  border-radius: 0px 20px 0px 0px;
+}
+
+
+
+
 
 .actions {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
 }
 
 .action-icon {
   cursor: pointer;
   font-size: 1.2rem;
+  color: #F1C40F;
+  /* Cor de destaque */
 }
 
 .modal {
@@ -431,11 +487,61 @@ export default {
 }
 
 .modal-content {
-  background: white;
+  background: #FFFFFF; /* Cor de fundo do modal */
   padding: 20px;
   border-radius: 10px;
   max-width: 500px;
   width: 100%;
+  text-align: center; /* Centraliza o texto dentro do modal */
+}
+
+
+.modal-content p {
+  margin-bottom: 10px;
+
+}
+
+.modal-p{
+  text-align: left; 
+  font-family:"Open Sans", sans-serif;
+  color:#2F2F2F;
+}
+
+.modal-p span {
+  font-weight: bold;
+  margin-right: 2px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  font-family: 'Bebas Neue', sans-serif; /* Fonte para o título */
+  color: #2C3E50; /* Cor do texto do título */
+  margin: 0;
+}
+
+/* Botões específicos dos modais */
+.btn-save {
+  background-color: #2ECC71;
+  /* Verde */
+}
+
+.btn-save:hover {
+  background: linear-gradient(#2ECC71, #28B463);
+}
+
+.btn-cancel {
+  background-color: #E74C3C;
+  /* Vermelho */
+}
+
+.btn-cancel:hover {
+  background: linear-gradient(#E74C3C, #C0392B);
 }
 
 .input-field {
@@ -443,7 +549,9 @@ export default {
   width: 95%;
   padding: 10px;
   margin-bottom: 10px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #D6EAF8;
   border-radius: 5px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
 }
 </style>
