@@ -109,7 +109,7 @@ export default {
   z-index: 1000;
   font-family: "Open Sans", sans-serif;
   font-size: 1rem;
-   margin-left: 10px;
+  margin-left: 10px;
 }
 
 .logout-link {

@@ -49,7 +49,7 @@ export default {
             start: eventDate.start,
             end: eventDate.end,
             id: agendamento._id,
-            color: '#7e57c2',
+            color: '#2C3E50',
           };
         });
 
@@ -84,7 +84,7 @@ export default {
           const dayName = args.text.slice(0, 3);
           const dayNumber = args.text.slice(5);
           return {
-            html: `<span style="display: block; text-transform: uppercase; margin-bottom: 5px;">${dayName}</span><span>${dayNumber}</span>`
+            html: `<span style="display: block; text-transform: uppercase; margin-bottom: 5px; font-family: 'Open Sans', sans-serif;">${dayName}</span><span style="font-family: 'Open Sans', sans-serif;">${dayNumber}</span>`
           };
         },
         buttonText: {
@@ -135,7 +135,6 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
 .meus-agendamentos {
   max-width: 900px;
@@ -150,7 +149,7 @@ h1 {
   font-weight: 100;
 }
 
-.fc-toolbar-title {
+.fc .fc-toolbar-title {
   color: #5e35b1;
   font-size: 1.5rem;
 }
