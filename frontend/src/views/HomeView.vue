@@ -11,45 +11,6 @@
     <div class="main-foto"><img src="../fotos/fotoMain.png" alt="Foto com notas e instrumentos"></div>
   </main>
 
-  <section class="historia-bg" id="historia">
-        
-    <div class="historia-desc">
-        <h1 class="historia-titulo">Nossa História: Transformando Vidas Através da Música</h1>
-        <div class="info">
-            <div class="desc1">
-                <h2 class="historia-subtitulo">Quando tudo começou:</h2>
-                <p class="desc-info">Fundada em 2015, nossa ONG surgiu do desejo de levar a música para comunidades que muitas vezes não têm acesso a uma educação musical de qualidade. Desde então, já impactamos mais de 200 alunos, ajudando a realizar sonhos e construir carreiras musicais.</p>
-            </div>
-            <div class="desc2">
-                <h2 class="historia-subtitulo">Missão:</h2>
-                <p class="desc-info">Nossa missão é democratizar o acesso à educação musical, promovendo o desenvolvimento cultural, social e emocional dos nossos alunos.</p>
-                <h2 class="historia-subtitulo">Visão:</h2>
-                <p class="desc-info">Ser uma referência em ensino musical gratuito e inclusivo, criando oportunidades para talentos emergirem.</p>
-                <h2 class="historia-subtitulo">Valores:</h2>
-                <p class="desc-info">Inclusão, Respeito, Criatividade, Dedicação, Transformação.</p>
-            </div>
-            <div class="desc3">
-                <h2 class="historia-subtitulo">Nossa equipe:</h2>
-                <p class="desc-info">Nossa equipe é composta por músicos, educadores e voluntários apaixonados pelo ensino e pela música. Juntos, trabalhamos para criar um ambiente acolhedor e inspirador para nossos alunos</p>
-            </div>
-            <div class="desc4">
-                <h2 class="historia-subtitulo">Como nos encontrar: </h2>
-
-                <p class="desc-info">Estamos localizados no coração de Sobral, ao lado da Praça São João, de fácil acesso tanto para moradores locais quanto para visitantes. Próximo a pontos de ônibus e estacionamentos, facilitando a chegada de alunos e voluntários.</p>
-                <h3 class="h3">Endereço:</h3>
-                <p class="desc-info">Rua das Artes, 123 – Centro, Sobral, CE, 62010-000</p>
-
-                <h3 class="h3">Funcionamento:</h3>
-                <p class="desc-info">Segunda a Sexta-feira: 8h às 21h <br>
-                    Sábado: 9h às 14h</p>
-                <h3 class="h3">Contato:</h3>
-                <p class="desc-info">(88) 9 9999-9999</p>                
-            </div>
-        
-          </div>
-    </div>
-  </section>
-
   <section class="depoimento-bg">
     <div class="depoimento">
         <h1 class="depoimento-titulo">A Voz dos Nossos Alunos</h1>

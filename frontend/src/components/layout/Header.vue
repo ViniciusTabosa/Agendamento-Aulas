@@ -4,7 +4,7 @@
       <nav>
         <ul class="header-menu">
           <li><a href="./">Início</a></li>
-          <li><a href="#historia">Quem somos</a></li>
+          <li><a href="/about">Quem somos</a></li>
           <li><a href="/instrutores">Nossos Instrutores</a></li>
           <li><a href="/aulas">Nossas Aulas</a></li>
         </ul>
