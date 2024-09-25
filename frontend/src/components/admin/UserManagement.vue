@@ -22,7 +22,7 @@
         <option v-for="perfil in perfis" :key="perfil._id" :value="perfil._id">{{ perfil.nome }}</option>
       </select>
 
-      <button @click="resetarFiltro" class="btn">Resetar Filtro</button>      
+      <button @click="resetarFiltro" class="btn-reset">Resetar Filtro</button>      
       
     </div>
 
@@ -93,8 +93,8 @@
         <select v-model="usuarioEditando.perfilId" class="input-field">
           <option v-for="perfil in perfis" :key="perfil._id" :value="perfil._id">{{ perfil.nome }}</option>
         </select>
-        <button @click="salvarEdicao" class="btn" style="margin-right: 10px;">Salvar</button>
-        <button @click="fecharModal" class="btn">Cancelar</button>
+        <button @click="salvarEdicao" class="btn btn-save" style="margin-right: 10px;">Salvar</button>
+        <button @click="fecharModal" class="btn btn-cancel">Cancelar</button>
       </div>
     </div>
 
@@ -110,8 +110,8 @@
         <select v-model="novoUsuario.perfilId" class="input-field">
           <option v-for="perfil in perfis" :key="perfil._id" :value="perfil._id">{{ perfil.nome }}</option>
         </select>
-        <button @click="salvarNovoUsuario" class="btn" style="margin-right: 10px;">Salvar</button>
-        <button @click="fecharModalNovoUsuario" class="btn">Cancelar</button>
+        <button @click="salvarNovoUsuario" class="btn btn-save" style="margin-right: 10px;">Salvar</button>
+        <button @click="fecharModalNovoUsuario" class="btn btn-cancel">Cancelar</button>
       </div>
     </div>
   </div>
@@ -318,9 +318,13 @@ export default {
 
 <style scoped>
 .usuarios-container {
+  min-height: calc(100vh - 100px); /* Calcula a altura da viewport menos o tamanho do header e footer */
+  display: flex;
+  flex-direction: column;
   padding: 20px;
   margin: 0 auto;
   position: relative;
+  background-color: #FFFFFF;
 }
 
 .title-container{
@@ -331,17 +335,24 @@ export default {
 }
 
 .title {
-  text-align: center;
-  color: #6e56cf;
-  font-size: 2rem;
-  margin-bottom: 20px;
+  font-family: 'Bebas Neue', sans-serif;
+  color: #2C3E50;
+  font-size: 2.5rem;
 }
 
 .novo-usuario-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 20px;
+  background-color: #2C3E50;
+  color: white;
+  padding: 16px 32px;
+  border-radius: 25px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.novo-usuario-btn:hover {
+  background-color: #1F2C3C;
 }
 
 .search-box {
@@ -349,21 +360,25 @@ export default {
   justify-content: left;
   align-items: center;
   margin-bottom: 20px;
+
 }
 
-.search-input {
-  width: 70%;
+.search-input,
+.filter-select {
+  font-family: 'Open Sans', sans-serif;
+  width: 30%;
   padding: 12px 16px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #D6EAF8;
   border-radius: 25px;
   font-size: 16px;
+  color: #2F2F2F;
   margin-right: 10px;
 }
 
 .btn {
-  background-color: #6e56cf;
+  background-color: #2C3E50;
   color: white;
-  padding: 10px 20px;
+  padding: 16px 32px;
   border-radius: 25px;
   font-weight: bold;
   border: none;
@@ -372,16 +387,23 @@ export default {
 }
 
 .btn:hover {
-  background-color: #5b3da3;
+  background-color: #1F2C3C;
 }
 
-.filter-select {
-  width: 30%;
-  padding: 12px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 25px;
-  font-size: 16px;
-  margin-right: 10px;
+.btn-reset {
+  background-color: #F1C40F; 
+  color: #2C3E50; 
+  padding: 12px 24px; 
+  border-radius: 25px; 
+  font-weight: bold; 
+  border: 2px solid #bcddff; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+.btn-reset:hover {
+  background-color: #d3ad04; 
+
 }
 
 
@@ -404,18 +426,29 @@ export default {
 }
 
 .user-table th {
-  background-color: #6b46c1;
+  background-color: #2C3E50;
   color: white;
+  padding: 10px;
+  text-align: center; /* Centraliza o conteúdo do cabeçalho */
 }
+
+.user-table td {
+  color: #2F2F2F;
+}
+
+
 
 .actions {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
 }
 
 .action-icon {
   cursor: pointer;
   font-size: 1.2rem;
+  color: #F1C40F; /* Cor de destaque */
 }
 
 .modal {
@@ -438,12 +471,38 @@ export default {
   width: 100%;
 }
 
+.modal-content h2 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.8rem;
+  color: #2C3E50;
+  margin-bottom: 20px;
+}
+
+/* Botões específicos dos modais */
+.btn-save {
+  background-color: #2ECC71; /* Verde */
+}
+
+.btn-save:hover {
+  background: linear-gradient(#2ECC71, #28B463);
+}
+
+.btn-cancel {
+  background-color: #E74C3C; /* Vermelho */
+}
+
+.btn-cancel:hover {
+  background: linear-gradient(#E74C3C, #C0392B);
+}
+
 .input-field {
   display: block;
   width: 95%;
   padding: 10px;
   margin-bottom: 10px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #D6EAF8;
   border-radius: 5px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
 }
 </style>
