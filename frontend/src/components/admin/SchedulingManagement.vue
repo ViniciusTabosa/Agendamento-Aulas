@@ -8,14 +8,9 @@
 
     <!-- Input de Busca e Filtro -->
     <div class="filters">
-      <input
-        type="text"
-        v-model="searchQuery"
-        @input="buscarAgendamentos"
-        placeholder="Busque pelo nome do usuário ou da aula"
-        class="search-input"
-      />
-      <button @click="resetarFiltros" class="btn">Resetar Filtros</button>
+      <input type="text" v-model="searchQuery" @input="buscarAgendamentos"
+        placeholder="Busque pelo nome do usuário ou da aula" class="search-input" />
+      <button @click="resetarFiltros" class="btn-reset">Resetar Filtros</button>
     </div>
 
     <!-- Tabela de Agendamentos -->
@@ -52,39 +47,42 @@
       </table>
 
       <!-- Componente de Paginação -->
-      <PaginationComponent
-        :paginaAtual="paginaAtual"
-        :totalPaginas="totalPaginas"
-        :totalRegistros="totalAgendamentos"
-        :registrosPorPagina="agendamentosPorPagina"
-        @pagina-trocada="paginaAtual = $event; buscarAgendamentos(false)"
-      />
+      <PaginationComponent :paginaAtual="paginaAtual" :totalPaginas="totalPaginas" :totalRegistros="totalAgendamentos"
+        :registrosPorPagina="agendamentosPorPagina" @pagina-trocada="paginaAtual = $event; buscarAgendamentos(false)" />
     </div>
 
     <!-- Modal para visualizar agendamento -->
     <div v-if="verModal" class="modal">
       <div class="modal-content">
-        <h2>Detalhes do Agendamento</h2>
-        <p><strong>Usuário:</strong> {{ agendamentoSelecionado.usuarioId?.nome }} {{ agendamentoSelecionado.usuarioId?.sobrenome }}</p>
-        <p><strong>Aula:</strong> {{ agendamentoSelecionado.aulaId?.nome }}</p>
-        <p><strong>Horário:</strong> {{ agendamentoSelecionado.horarioId?.hora_inicio }} às {{ agendamentoSelecionado.horarioId?.hora_fim }}</p>
-        <p><strong>Status:</strong> {{ agendamentoSelecionado.statusId?.nome }}</p>
-        <button @click="fecharModal" class="btn">Fechar</button>
+        <div class="modal-header">
+          <h2>Detalhes do Agendamento</h2>
+        </div>
+        <div class="modal-p">
+          <p><span>Usuário:</span> {{ agendamentoSelecionado.usuarioId?.nome }} {{
+            agendamentoSelecionado.usuarioId?.sobrenome }}</p>
+          <p><span>Aula:</span> {{ agendamentoSelecionado.aulaId?.nome }}</p>
+          <p><span>Horário:</span> {{ agendamentoSelecionado.horarioId?.hora_inicio }} às {{
+            agendamentoSelecionado.horarioId?.hora_fim }}</p>
+          <p><span>Status:</span> {{ agendamentoSelecionado.statusId?.nome }}</p>
+        </div>
+        <button @click="fecharModal" class="btn-cancel">Fechar</button>
       </div>
     </div>
 
     <!-- Modal para editar agendamento -->
     <div v-if="editarModal" class="modal">
       <div class="modal-content">
-        <h2>Editar Agendamento</h2>
+        <div class="modal-header">
+          <h2>Editar Agendamento</h2>
+        </div>
         <select v-model="selectedHorario" class="input-field">
           <option value="">-- Horários Disponíveis -- </option>
           <option v-for="horario in horariosDisponiveis" :key="horario._id" :value="horario._id">
             {{ horario.hora_inicio }} às {{ horario.hora_fim }}
           </option>
         </select>
-        <button @click="salvarEdicao" class="btn" style="margin-right: 10px;">Salvar</button>
-        <button @click="fecharModal" class="btn">Cancelar</button>
+        <button @click="salvarEdicao" class="btn-save" style="margin-right: 10px;">Salvar</button>
+        <button @click="fecharModal" class="btn-cancel">Cancelar</button>
       </div>
     </div>
   </div>
@@ -92,7 +90,7 @@
 
 <script>
 import PaginationComponent from '@/components/shared/Pagination.vue';
-import api from "@/utils/api"; 
+import api from "@/utils/api";
 
 export default {
   name: 'SchedulingManagementComponent',
@@ -123,9 +121,9 @@ export default {
 
         const queryParam = `?pagina=${this.paginaAtual}&agendamentosPorPagina=${this.agendamentosPorPagina}`;
         const searchParam = this.searchQuery ? `&searchQuery=${encodeURIComponent(this.searchQuery)}` : '';
-  
+
         const response = await api.get(`/agendamentos/get-filtered-scheduling${queryParam}${searchParam}`);
-        
+
         this.agendamentos = response.data.agendamentos;
         this.totalAgendamentos = response.data.totalAgendamentos;
         this.totalPaginas = Math.ceil(this.totalAgendamentos / this.agendamentosPorPagina);
@@ -207,9 +205,12 @@ export default {
 
 <style scoped>
 .agendamentos-container {
+  min-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
   padding: 20px;
   margin: 0 auto;
-  position: relative;
+  background-color: #FFFFFF;
 }
 
 .title-container {
@@ -220,10 +221,9 @@ export default {
 }
 
 .title {
-  text-align: center;
-  color: #6e56cf;
-  font-size: 2rem;
-  margin-bottom: 20px;
+  font-family: 'Bebas Neue', sans-serif;
+  color: #2C3E50;
+  font-size: 2.5rem;
 }
 
 .filters {
@@ -234,38 +234,42 @@ export default {
 }
 
 .search-input {
-  width: 50%;
+  font-family: 'Open Sans', sans-serif;
+  width: 30%;
   padding: 12px 16px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #D6EAF8;
   border-radius: 25px;
   font-size: 16px;
+  color: #2F2F2F;
   margin-right: 10px;
 }
 
-.btn {
-  background-color: #6e56cf;
-  color: white;
-  padding: 10px 20px;
+.btn-reset {
+  background-color: #F1C40F;
+  color: #2C3E50;
+  padding: 12px 24px;
   border-radius: 25px;
   font-weight: bold;
-  border: none;
+  border: 2px solid #bcddff;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.btn:hover {
-  background-color: #5b3da3;
+.btn-reset:hover {
+  background-color: #d3ad04;
 }
 
 .table-wrapper {
   overflow-x: auto;
   margin-top: 20px;
+  border-radius: 20px;
 }
 
 .category-table {
   width: 100%;
   border-collapse: collapse;
   margin: 0 auto;
+  border-radius: 20px;
 }
 
 .category-table th,
@@ -273,21 +277,44 @@ export default {
   padding: 10px;
   border: 1px solid #e2e8f0;
   text-align: left;
+  vertical-align: middle; /* Garante que o conteúdo das células fique centralizado verticalmente */
+  font-family: 'Open Sans', sans-serif;
 }
 
 .category-table th {
-  background-color: #6b46c1;
+  background-color: #2C3E50;
   color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.category-table td {
+  color: #2F2F2F;
+}
+
+.pagination-container {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.category-table th:first-child{
+  border-radius: 20px 0px 0px 0px;
+}
+
+.category-table th:last-child{
+  border-radius: 0px 20px 0px 0px;
 }
 
 .actions {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
 }
 
 .action-icon {
   cursor: pointer;
   font-size: 1.2rem;
+  color: #F1C40F;
 }
 
 .modal {
@@ -296,18 +323,98 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .modal-content {
-  background: white;
+  background: #FFFFFF;
   padding: 20px;
   border-radius: 10px;
   max-width: 500px;
   width: 100%;
+  text-align: center;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  font-family: 'Bebas Neue', sans-serif; /* Fonte para o título */
+  color: #2C3E50; /* Cor do texto do título */
+  margin: 0;
+}
+
+.modal-content p {
+  margin-bottom: 10px;
+  
+}
+
+.modal-p{
+  text-align: left; 
+  font-family:"Open Sans", sans-serif;
+  color:#2F2F2F;
+}
+
+.modal-p span {
+  font-weight: bold;
+  margin-right: 2px;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #2F2F2F;
+}
+
+.btn-save,
+.btn-cancel,
+.btn-edit {
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-save {
+  background-color: #2ecc71;
+  /* Verde */
+  color: white;
+}
+
+.btn-save:hover {
+  background-color: #27ae60;
+}
+
+.btn-cancel {
+  background-color: #e74c3c;
+  /* Vermelho */
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #c0392b;
+}
+
+.btn-edit {
+  background-color: #f1c40f;
+  /* Amarelo */
+  color: #2C3E50;
+}
+
+.btn-edit:hover {
+  background-color: #d4ac0d;
 }
 
 .input-field {
@@ -315,7 +422,9 @@ export default {
   width: 95%;
   padding: 10px;
   margin-bottom: 10px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #D6EAF8;
   border-radius: 5px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
 }
 </style>
