@@ -280,17 +280,10 @@ input {
 
 .save-btn,
 .cancel-btn {
-<<<<<<< HEAD
   color: #fff;
   background-color: #2C3E50;
   padding: 10px 20px;
   border-radius: 10px;
-=======
-  color: #D6EAF8;
-  background-color: #2C3E50;
-  padding: 10px 20px;
-  border-radius: 30px;
->>>>>>> ada387601d722e0b698f48357620328be25188da
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;

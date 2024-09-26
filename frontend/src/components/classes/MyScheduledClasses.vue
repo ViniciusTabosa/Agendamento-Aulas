@@ -101,10 +101,6 @@ export default {
   },
   methods: {
     setupCalendar() {
-<<<<<<< HEAD
-      // Mesmo que agendamentos esteja vazio, o calendário será renderizado
-      this.calendarOptions.events = this.agendamentos.length ? this.agendamentos : [];
-=======
       this.calendarOptions = {
         plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
         initialView: 'timeGridWeek',
@@ -147,7 +143,6 @@ export default {
         },
         eventClick: this.handleEventClick,
       };
->>>>>>> ada387601d722e0b698f48357620328be25188da
     },
     handleEventClick(info) {
       const agendamentoId = info.event.id;
@@ -181,10 +176,6 @@ export default {
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-=======
->>>>>>> ada387601d722e0b698f48357620328be25188da
 
 .meus-agendamentos {
   max-width: 900px;
