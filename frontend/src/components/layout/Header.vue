@@ -50,12 +50,6 @@
               </div>
             </div>
             <div v-if="isAdmin" class="menu-usuario">
-              <img src="../../fotos/layers.png" alt="" v-if="isAdmin">
-              <div class="menu-desc">
-                <li><router-link to="/admin/categories-management" class="link">Gerenciar Categorias</router-link></li>
-              </div>
-            </div>
-            <div v-if="isAdmin" class="menu-usuario">
               <img src="../../fotos/group.png" alt="" v-if="isAdmin">
               <div class="menu-desc">
                 <li><router-link to="/admin/scheduling-management" class="link">Gerenciar Agendamentos</router-link></li>
