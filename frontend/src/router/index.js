@@ -10,7 +10,7 @@ import ClassDetailsView from '@/views/classes/ClassDetailsView.vue';
 import MyScheduledClassesView from '@/views/classes/MyScheduledClassesView.vue';
 import ScheduleDetailsView from '@/views/schedule/ScheduleDetailsView.vue'; 
 import UserProfileView from '@/views/user/UserProfileView.vue';
-import AdminView from '@/views/admin/AdminView.vue';
+import AdminView from '@/views/admin/ClassManagementView.vue';
 import AdminLoginView from '@/views/admin/AdminLoginView.vue'; 
 import UserManagementView from '@/views/admin/UserManagementView.vue'; 
 import ClassManagementView from '@/views/admin/ClassManagementView.vue'; 
@@ -161,7 +161,7 @@ router.beforeEach((to, from, next) => {
     if (!token) {
       // Verificar se a rota é de admin, redireciona para o login correto
       if (to.matched.some(record => record.meta.requiresAdmin)) {
-        return next({ path: '/admin-login', query: { redirect: to.fullPath } });
+        return next({ path: '/login', query: { redirect: to.fullPath } });
       } else {
         // Redirecionar para o login normal se não for uma rota de admin
         return next({ path: '/login', query: { redirect: to.fullPath } });
