@@ -64,7 +64,8 @@
       font-size: 4rem;
       margin-bottom: 50px;
       font-weight: 400;
-      padding-left: 50px;
+      padding-left:20px;
+      padding-right: 20px;
       padding-top: 50px;
   }
   

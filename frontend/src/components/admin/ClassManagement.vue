@@ -576,6 +576,8 @@ export default {
   margin-right: 10px;
 }
 
+
+
 .btn {
   background-color: #2C3E50;
   color: white;
