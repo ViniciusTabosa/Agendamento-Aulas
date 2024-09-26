@@ -212,7 +212,7 @@ export default {
 .menu-lateral {
   font-family: "Open Sans", sans-serif;
   text-align: center;
-  width: 200px;
+  width: 300px;
   border-right: 1px solid #ddd;
   padding: 20px;
 }
@@ -229,7 +229,9 @@ export default {
   border-bottom: 1px solid #ddd;
   transition: background-color 0.3s ease;
   border-radius: 10px;
+  white-space: nowrap; 
 }
+
 
 .menu-lateral li.active,
 .menu-lateral li:hover {

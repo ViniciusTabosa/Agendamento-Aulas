@@ -74,6 +74,7 @@ h1 {
 form {
   background-color: #F5F1E9;
   padding: 40px;
+  width: 400px;
   border-radius: 15px;
   box-shadow: 5px 5px 20px rgba(71, 94, 136, 0.9);
   display: flex;
